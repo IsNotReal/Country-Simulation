@@ -46,8 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\2. Scripts\EventCtrl.cs" />
-     <Compile Include="Assets\2. Scripts\GameSystemCtrl.cs" />
+     <Compile Include="Assets\2. Scripts\InGame\EventCtrl.cs" />
+     <Compile Include="Assets\2. Scripts\InGame\GameSystemCtrl.cs" />
+     <Compile Include="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" />
+     <Compile Include="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

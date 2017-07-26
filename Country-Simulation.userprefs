@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\2. Scripts\GameSystemCtrl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs">
     <Files>
-      <File FileName="Assets\2. Scripts\EventCtrl.cs" Line="38" Column="24" />
-      <File FileName="Assets\2. Scripts\GameSystemCtrl.cs" Line="100" Column="28" />
+      <File FileName="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" Line="1" Column="1" />
+      <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="29" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
