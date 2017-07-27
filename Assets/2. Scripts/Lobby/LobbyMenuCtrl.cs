@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LobbyMenuCtrl : MonoBehaviour {
 
+	public Animator ForegroundAnim;
+
 	private int CurrentPage = 0;
 	private Animator thisAnim;
 
@@ -13,23 +15,21 @@ public class LobbyMenuCtrl : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape) && CurrentPage > 0) {
+			int page = CurrentPage;
 			MoveAnim (-CurrentPage);
-			CurrentPage--;
+			CurrentPage = page - 1;
 		}
 	}
 
 	public void MoveAnim(int num){
 		CurrentPage = num;
-		switch (num) {
-		case 1:
-			thisAnim.SetTrigger ("MoveF1");
-			break;
-		case -1:
-			thisAnim.SetTrigger ("BackF1");
-			break;
-		default:
-			Debug.LogError ("Wrong page select \n\rCheck button event");
-			break;
+		if (num != 0) {
+			thisAnim.SetInteger ("Move", num);
+			thisAnim.SetTrigger ("Start");
 		}
+		if (num == -1)
+			ForegroundAnim.SetTrigger ("Hide");
+		if (num == 1)
+			ForegroundAnim.SetTrigger ("Show");
 	}
 }
