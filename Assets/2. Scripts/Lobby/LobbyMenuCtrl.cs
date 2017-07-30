@@ -31,7 +31,7 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		DifficultyPercentText.text = DifficultySlider.value + "%";
+		DifficultyPercentText.text = DifficultySlider.value * 100 / DifficultySlider.maxValue + "%";
 	}
 
 	public void MoveAnim(int num){
@@ -62,8 +62,11 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	}
 
 	public void MoveSelectCountry(){
-		if (CurrentPage == 3)
-			MoveAnim (-3);
+		if (CurrentPage != 3)
+			return;
+		int page = CurrentPage;
+		MoveAnim (-3);
+		CurrentPage = page - 1;
 	}
 
 	void MoveScene() {

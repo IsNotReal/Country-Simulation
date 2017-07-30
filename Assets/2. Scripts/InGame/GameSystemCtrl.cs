@@ -40,7 +40,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	IEnumerator RunTime () {
-		TimeText.text = TimeYear + "Y " + TimeMonth + "M " + TimeDay + "D";
+		string m, d;
+		m = TimeMonth < 10 ? "0" + TimeMonth : TimeMonth.ToString();
+		d = TimeDay < 10 ? "0" + TimeDay : TimeDay.ToString();
+		TimeText.text = TimeYear + "." + m + "." + d;
 
 		yield return new WaitForSeconds (AddTimeDelay);
 
