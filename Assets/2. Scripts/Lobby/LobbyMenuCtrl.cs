@@ -11,6 +11,7 @@ public class LobbyMenuCtrl : MonoBehaviour {
 
 	[Header("Object Settings")]
 	public Animator ForegroundAnim;
+	public Animator GameExitPanel;
 	public Text HeadText;
 	public Slider DifficultySlider;
 	public Text DifficultyPercentText;
@@ -23,10 +24,13 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape) && CurrentPage > 0) {
-			int page = CurrentPage;
-			MoveAnim (-CurrentPage);
-			CurrentPage = page - 1;
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			if (CurrentPage > 0) {
+				int page = CurrentPage;
+				MoveAnim (-CurrentPage);
+				CurrentPage = page - 1;
+			} else 
+				GameExitAnim ();
 		}
 	}
 
@@ -71,5 +75,13 @@ public class LobbyMenuCtrl : MonoBehaviour {
 
 	void MoveScene() {
 		SceneManager.LoadScene (GameSceneName);
+	}
+
+	public void GameExitAnim() {
+		GameExitPanel.SetTrigger (GameExitPanel.GetCurrentAnimatorStateInfo(0).IsName("GameExitOn") ? "Off" : "On");
+	}
+
+	public void AppQuit() {
+		Application.Quit ();
 	}
 }

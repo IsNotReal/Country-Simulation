@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameController"
 
@@ -22,11 +23,13 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Slider RatingSlider;
 	public Text RatingText;
 	public Animator LeftUI;
+	public Animator GameExitUI;
 
 	private int TimeDay;
 	private int TimeMonth;
 	private int TimeYear;
 	private int TimeMultiple = 1;
+	private bool TimeRunning = true;
 
 	private List<EventCtrl> EventQueue;
 
@@ -37,6 +40,12 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			MaxEventNum = 1;
 		EventQueue = new List<EventCtrl>(MaxEventNum);
 		GameStart ();
+	}
+
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			MoveQuitUI ();
+		}
 	}
 
 	void FixedUpdate () {
@@ -73,10 +82,16 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	public void MoveLeftUi () {
-		if (LeftUI.GetCurrentAnimatorStateInfo (0).IsName ("LeftUIOn"))
-			LeftUI.SetTrigger ("Off");
-		else
-			LeftUI.SetTrigger ("On");
+		LeftUI.SetTrigger (LeftUI.GetCurrentAnimatorStateInfo (0).IsName ("LeftUIOn") ? "Off" : "On");
+	}
+
+	public void MoveQuitUI () {
+		GameExitUI.SetTrigger (GameExitUI.GetCurrentAnimatorStateInfo (0).IsName ("GameExitOn") ? "Off" : "On");
+		TimeStop ();
+	}
+
+	public void GotoMainMenu() {
+		SceneManager.LoadScene("LobbyScene");
 	}
 
 	/* ↓ Run Functions ↓ */
@@ -95,6 +110,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		TimeText.text = TimeYear + "." + m + "." + d;
 
 		yield return new WaitForSeconds (AddTimeDelay / TimeMultiple);
+
+		while (!TimeRunning) 
+			yield return null;
 
 		TimeDay++;
 
@@ -153,7 +171,12 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		}
 
 		GameRun ();
+
 		StartCoroutine (RunTime ());
+	}
+
+	public void TimeStop () {
+		TimeRunning = !TimeRunning;
 	}
 
 	public bool TimeCheck (int Day, int Month, int Year) {
