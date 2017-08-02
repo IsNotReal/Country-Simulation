@@ -10,6 +10,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public float AddTimeDelay = 1f;
 	public int MaxEventNum = 100;
 
+	[Header("View Settings")]
+	public float MaxViewSize = 1.5f;
+	public float MinViewSize = 0.5f;
+
 	[Header("Time Settings")]
 	public int StartDay = 1;
 	public int StartMonth = 1;
@@ -31,6 +35,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	private int TimeMultiple = 1;
 	private bool TimeRunning = true;
 
+	private float StartTouchDistance = -1;
+	private float StartViewSize;
+	private float CurrentViewSize = 1;
+
 	private List<EventCtrl> EventQueue;
 
 	/* Variables */
@@ -39,6 +47,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		if (MaxEventNum <= 0)
 			MaxEventNum = 1;
 		EventQueue = new List<EventCtrl>(MaxEventNum);
+		StartViewSize = Camera.main.orthographicSize;
 		GameStart ();
 	}
 
@@ -46,6 +55,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			MoveQuitUI ();
 		}
+		TouchView ();
 	}
 
 	void FixedUpdate () {
@@ -79,6 +89,27 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	public void AddEvent (EventCtrl e) {
 		EventQueue.Add (e);
+	}
+
+	void TouchView () {
+		if (Input.touches.Length < 2)
+			return;
+		if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
+			if (StartTouchDistance < 0) {
+				StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+				return;
+			}
+			float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+			float distanceDif = currentDistance / StartTouchDistance - 1;
+			CurrentViewSize += distanceDif;
+			CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
+//			if (distanceDif > 0)
+//				CurrentViewSize = CurrentViewSize + distanceDif > MaxViewSize ? MaxViewSize : CurrentViewSize + distanceDif;
+//			else
+//				CurrentViewSize = CurrentViewSize + distanceDif < MinViewSize ? MinViewSize : CurrentViewSize + distanceDif;
+			Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
+		} else
+			StartTouchDistance = -1;
 	}
 
 	public void MoveLeftUi () {
