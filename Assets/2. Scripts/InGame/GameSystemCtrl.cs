@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameController"
@@ -13,6 +14,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	[Header("View Settings")]
 	public float MaxViewSize = 1.5f;
 	public float MinViewSize = 0.5f;
+	public Vector2 MaxViewPosition;
+	public float CameraMoveSpeed = 10f;
 
 	[Header("Time Settings")]
 	public int StartDay = 1;
@@ -92,24 +95,34 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	void TouchView () {
-		if (Input.touches.Length < 2)
-			return;
-		if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
-			if (StartTouchDistance < 0) {
-				StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-				return;
-			}
-			float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-			float distanceDif = currentDistance / StartTouchDistance - 1;
-			CurrentViewSize += distanceDif;
-			CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
-//			if (distanceDif > 0)
-//				CurrentViewSize = CurrentViewSize + distanceDif > MaxViewSize ? MaxViewSize : CurrentViewSize + distanceDif;
-//			else
-//				CurrentViewSize = CurrentViewSize + distanceDif < MinViewSize ? MinViewSize : CurrentViewSize + distanceDif;
-			Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
-		} else
-			StartTouchDistance = -1;
+		CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
+		Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
+
+		// View Move
+		if (Input.touches.Length == 1) {
+			if (CurrentViewSize < 1) {
+				float mul = (MaxViewSize - CurrentViewSize) / MinViewSize;
+				Vector3 CamPos = (Vector2)Camera.main.transform.position + Input.touches[0].deltaPosition * CameraMoveSpeed;
+				CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
+				CamPos.y = Mathf.Clamp (CamPos.x, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
+				CamPos.z = Camera.main.transform.position.z;
+				Camera.main.transform.position = CamPos;
+			} else 
+				Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
+		}
+
+		// View Zoom
+		if (Input.touches.Length == 2) {
+			if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
+				if (StartTouchDistance < 0) {
+					StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+					return;
+				}
+				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+				CurrentViewSize -= currentDistance / StartTouchDistance - 1;
+			} else
+				StartTouchDistance = -1;
+		}
 	}
 
 	public void MoveLeftUi () {

@@ -15,12 +15,14 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	public Text HeadText;
 	public Slider DifficultySlider;
 	public Text DifficultyPercentText;
+	public Text VersionText;
 
 	private int CurrentPage = 0;
 	private Animator thisAnim;
 
 	void Start () {
 		thisAnim = gameObject.GetComponent<Animator> ();
+		VersionText.text += UnityEngine.Application.version;
 	}
 
 	void Update () {
