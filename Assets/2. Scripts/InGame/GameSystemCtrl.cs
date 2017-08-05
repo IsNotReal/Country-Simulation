@@ -95,16 +95,16 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	void TouchView () {
+		Vector3 CamPos = Camera.main.transform.position;
+		float mul = (MaxViewSize - CurrentViewSize) / MinViewSize;
 		CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
 		Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
 
 		// View Move
 		if (Input.touches.Length == 1) {
 			if (CurrentViewSize < 1) {
-				float mul = (MaxViewSize - CurrentViewSize) / MinViewSize;
-				Vector3 CamPos = (Vector2)Camera.main.transform.position + Input.touches[0].deltaPosition * CameraMoveSpeed;
-				CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
-				CamPos.y = Mathf.Clamp (CamPos.x, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
+				CamPos.x = Mathf.Clamp (CamPos.x - Input.touches[0].deltaPosition.x * CameraMoveSpeed, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
+				CamPos.y = Mathf.Clamp (CamPos.y - Input.touches[0].deltaPosition.y * CameraMoveSpeed, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
 				CamPos.z = Camera.main.transform.position.z;
 				Camera.main.transform.position = CamPos;
 			} else 
@@ -120,6 +120,15 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 				}
 				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
 				CurrentViewSize -= currentDistance / StartTouchDistance - 1;
+
+				if (CurrentViewSize < 1) {
+					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
+					CamPos.y = Mathf.Clamp (CamPos.y, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
+					CamPos.z = Camera.main.transform.position.z;
+					Camera.main.transform.position = CamPos;
+				} else 
+					Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
+				
 			} else
 				StartTouchDistance = -1;
 		}
