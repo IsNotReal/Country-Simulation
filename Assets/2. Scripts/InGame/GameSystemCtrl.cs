@@ -16,6 +16,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public float MinViewSize = 0.5f;
 	public Vector2 MaxViewPosition;
 	public float CameraMoveSpeed = 10f;
+	public float CameraZoomSpeed = 10f;
 
 	[Header("Time Settings")]
 	public int StartDay = 1;
@@ -31,6 +32,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Text RatingText;
 	public Animator LeftUI;
 	public Animator GameExitUI;
+	public Animator ForegroundAnim;
+	public Animator UIAnim;
+
+	private int CurrentAnimPos = 0;
 
 	private int TimeDay;
 	private int TimeMonth;
@@ -56,7 +61,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			MoveQuitUI ();
+			if (CurrentAnimPos == 0)
+				MoveQuitUI ();
+			else
+				MoveUI (-CurrentAnimPos);
 		}
 		TouchView ();
 	}
@@ -119,7 +127,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 					return;
 				}
 				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-				CurrentViewSize -= currentDistance / StartTouchDistance - 1;
+				CurrentViewSize -= currentDistance * CameraZoomSpeed / StartTouchDistance - 1;
 
 				if (CurrentViewSize < 1) {
 					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
@@ -143,8 +151,33 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		TimeStop ();
 	}
 
-	public void GotoMainMenu() {
+	public void GotoMainMenu () {
 		SceneManager.LoadScene("LobbyScene");
+	}
+
+	public void MoveUI (int num) {
+		if (num > 0)
+			CurrentAnimPos = num;
+		else 
+			CurrentAnimPos = Mathf.Abs (num) - 1;
+
+		if (num == -1) {
+			ForegroundToggle (false);
+			TimeStop (false);
+		}
+		if (num == 1) {
+			ForegroundToggle (true);
+			TimeStop (true);
+		}
+
+		UIAnim.SetInteger ("Move", num);
+		UIAnim.SetTrigger ("Start");
+	}
+
+	void ForegroundToggle (bool isOn) {
+		ForegroundAnim.ResetTrigger ("Show");
+		ForegroundAnim.ResetTrigger ("Hide");
+		ForegroundAnim.SetTrigger (isOn ? "Show" : "Hide");
 	}
 
 	/* ↓ Run Functions ↓ */
@@ -230,6 +263,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	public void TimeStop () {
 		TimeRunning = !TimeRunning;
+	}
+
+	public void TimeStop (bool time) {
+		TimeRunning = !time;
 	}
 
 	public bool TimeCheck (int Day, int Month, int Year) {

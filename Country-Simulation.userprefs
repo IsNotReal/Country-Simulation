@@ -4,8 +4,7 @@
     <Files>
       <File FileName="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" Line="1" Column="1" />
       <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="131" Column="5" />
+      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="67" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
