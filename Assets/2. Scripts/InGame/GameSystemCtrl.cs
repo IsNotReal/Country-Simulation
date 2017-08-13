@@ -66,7 +66,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			else
 				MoveUI (-CurrentAnimPos);
 		}
-		TouchView ();
+		if (CurrentAnimPos == 0)
+			TouchView ();
 	}
 
 	void FixedUpdate () {
@@ -127,7 +128,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 					return;
 				}
 				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-				CurrentViewSize -= currentDistance * CameraZoomSpeed / StartTouchDistance - 1;
+				CurrentViewSize -= (currentDistance / StartTouchDistance - 1) * CameraZoomSpeed;
 
 				if (CurrentViewSize < 1) {
 					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
@@ -162,10 +163,12 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			CurrentAnimPos = Mathf.Abs (num) - 1;
 
 		if (num == -1) {
+			LeftUI.SetTrigger ("Create");
 			ForegroundToggle (false);
 			TimeStop (false);
 		}
 		if (num == 1) {
+			LeftUI.SetTrigger ("Destroy");
 			ForegroundToggle (true);
 			TimeStop (true);
 		}
