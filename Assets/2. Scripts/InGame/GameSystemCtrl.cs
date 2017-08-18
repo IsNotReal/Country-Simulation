@@ -162,19 +162,29 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		else 
 			CurrentAnimPos = Mathf.Abs (num) - 1;
 
-		if (num == -1) {
+		switch (num) {
+		case -1:
 			LeftUI.SetTrigger ("Create");
 			ForegroundToggle (false);
 			TimeStop (false);
-		}
-		if (num == 1) {
+			break;
+		case 1:
 			LeftUI.SetTrigger ("Destroy");
 			ForegroundToggle (true);
 			TimeStop (true);
+			break;
 		}
 
 		UIAnim.SetInteger ("Move", num);
 		UIAnim.SetTrigger ("Start");
+	}
+
+	public void BackUI () {
+		MoveUI (-CurrentAnimPos);
+	}
+
+	public void MoveUINumSet (int num) {
+			UIAnim.SetInteger ("UINum", num);
 	}
 
 	void ForegroundToggle (bool isOn) {
