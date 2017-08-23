@@ -9,32 +9,58 @@ public class EventCtrl : MonoBehaviour {
 	[TextArea(3, 8)]
 	public string EventText;
 	public int EventKind;
+	public int EventActivePosition; // this value must lower than GameSystemCtrl.EventAreas.length
+	public bool isPositive = true;
 
 	[Header("Active Time Settings")]
 	public int ActiveDay = 1;
 	public int ActiveMonth = 1;
-	public int ActiveYear = 1;
+	public int ActiveYear = 2017;
+
+	[Header("Other Settings")]
+	public Sprite PositiveImage;
+	public Sprite NegativeImage;
 
 	private GameSystemCtrl GameSystem;
+	private Animator thisAnim;
+	private UnityEngine.UI.Image thisImage;
 
 	void Awake() {
 		GameSystem = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameSystemCtrl> ();
+		EventActivePosition = (int) Random.Range (0, GameSystem.EventAreas.Length); // test code
+
+		thisAnim = gameObject.GetComponent<Animator> ();
+		thisImage = gameObject.GetComponent<UnityEngine.UI.Image> ();
 		StartCoroutine (AddEvent ());
 	}
 
 	void Start () {
-		
 		if (ActiveDay <= 0 || ActiveMonth <= 0) {
 			Debug.LogError ("Active time can't set under 0");
 			return;
 		}
+
+		gameObject.transform.SetParent (GameSystem.EventAreas[EventActivePosition].transform);
+		gameObject.transform.localScale = Vector3.zero;
+		gameObject.transform.localPosition = Vector3.zero;
+		thisImage.sprite = isPositive ? PositiveImage : NegativeImage;
+		thisImage.SetNativeSize ();
+		thisAnim.SetTrigger ("On");
 
 		switch(EventKind){
 		default:
 			Debug.Log ("Event Actived, Event Kind: " + EventKind);
 			break;
 		}
+	}
 
+	public void DestroyEvent () {
+		thisAnim.SetTrigger ("Off");
+		StartCoroutine (DeleteObject ());
+	}
+
+	IEnumerator DeleteObject () {
+		yield return new WaitForSeconds (1f);
 		Destroy (gameObject);
 	}
 

@@ -10,6 +10,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	[Header("Game Settings")]
 	public float AddTimeDelay = 1f;
 	public int MaxEventNum = 100;
+	public GameObject[] EventAreas;
 
 	[Header("View Settings")]
 	public float MaxViewSize = 1.5f;
@@ -18,9 +19,12 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public float CameraMoveSpeed = 10f;
 	public float CameraZoomSpeed = 10f;
 
-	[Header("Time Settings")]
+	// [Header("Time Settings")]
+	[HideInInspector]
 	public int StartDay = 1;
+	[HideInInspector]
 	public int StartMonth = 1;
+	[HideInInspector]
 	public int StartYear = 2017;
 
 	[Header("UI Settings")]
@@ -56,6 +60,11 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			MaxEventNum = 1;
 		EventQueue = new List<EventCtrl>(MaxEventNum);
 		StartViewSize = Camera.main.orthographicSize;
+
+		StartDay = System.DateTime.Now.Day;
+		StartMonth = System.DateTime.Now.Month;
+		StartYear = System.DateTime.Now.Year;
+
 		GameStart ();
 	}
 
@@ -74,7 +83,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		RatingText.text = RatingSlider.value + "%";
 	}
 
-	void GameRun () { // Use this function like Update Event
+	void GameRun () { // Active this when game time running
 		
 	}
 
@@ -122,6 +131,15 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 		// View Zoom
 		if (Input.touches.Length == 2) {
+			
+			for (int i = 0; i < EventAreas.Length; i++)
+				EventAreas [i].transform.localScale = Vector3.one * CurrentViewSize;
+			
+			/* Code for Test
+			if (Input.GetAxis ("Mouse ScrollWheel") != 0) 
+				CurrentViewSize -= Input.GetAxis ("Mouse ScrollWheel") * CameraZoomSpeed;
+			*/
+
 			if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
 				if (StartTouchDistance < 0) {
 					StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
