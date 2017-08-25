@@ -120,7 +120,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 		// View Move
 		if (Input.touches.Length == 1) {
-			if (CurrentViewSize < 1) {
+			if (CurrentViewSize < MaxViewSize) {
 				CamPos.x = Mathf.Clamp (CamPos.x - Input.touches[0].deltaPosition.x * CameraMoveSpeed, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
 				CamPos.y = Mathf.Clamp (CamPos.y - Input.touches[0].deltaPosition.y * CameraMoveSpeed, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
 				CamPos.z = Camera.main.transform.position.z;
@@ -148,7 +148,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
 				CurrentViewSize -= (currentDistance / StartTouchDistance - 1) * CameraZoomSpeed;
 
-				if (CurrentViewSize < 1) {
+				if (CurrentViewSize < MaxViewSize) {
 					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
 					CamPos.y = Mathf.Clamp (CamPos.y, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
 					CamPos.z = Camera.main.transform.position.z;
