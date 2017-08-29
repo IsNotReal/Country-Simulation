@@ -38,6 +38,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Animator GameExitUI;
 	public Animator ForegroundAnim;
 	public Animator UIAnim;
+	public Image SelectedImage;
+	public Text SelectedText;
 
 	private int CurrentAnimPos = 0;
 
@@ -161,7 +163,13 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		}
 	}
 
-	public void MoveLeftUi () {
+	public void SetSelected () {
+		GameObject obj = EventSystem.current.currentSelectedGameObject;
+		SelectedImage.sprite = obj.GetComponentsInChildren<Image> ()[1].sprite;
+		SelectedText.text = obj.GetComponentInChildren<Text> ().text;
+	}
+
+	public void MoveLeftUI () {
 		LeftUI.SetTrigger (LeftUI.GetCurrentAnimatorStateInfo (0).IsName ("LeftUIOn") ? "Off" : "On");
 	}
 

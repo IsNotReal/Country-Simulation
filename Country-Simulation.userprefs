@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" Line="1" Column="1" />
       <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="151" Column="38" />
+      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="168" Column="66" />
       <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
