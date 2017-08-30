@@ -54,6 +54,17 @@ public class EventCtrl : MonoBehaviour {
 		}
 	}
 
+	public void Alert () {
+		if (GameSystem == null) {
+			Debug.LogError ("GameSystem can't null, Check EventSystem in GameController tag");
+			return;
+		}
+		AlertFormCtrl afc = GameSystem.Alert (EventName, EventText, 1, 3f, 5f);
+		afc.ReturnEvent = this;
+
+		gameObject.GetComponent<UnityEngine.UI.Button> ().enabled = false;
+	}
+
 	public void DestroyEvent () {
 		thisAnim.SetTrigger ("Off");
 		StartCoroutine (DeleteObject ());
@@ -61,7 +72,10 @@ public class EventCtrl : MonoBehaviour {
 
 	IEnumerator DeleteObject () {
 		yield return new WaitForSeconds (1f);
-		Destroy (gameObject);
+		gameObject.transform.SetParent (null);
+		gameObject.transform.position = Vector3.zero;
+		gameObject.SetActive (false);
+		// Destroy (gameObject);
 	}
 
 	IEnumerator AddEvent(){

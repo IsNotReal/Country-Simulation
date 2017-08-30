@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\2. Scripts\InGame\AlertFormCtrl.cs" />
      <Compile Include="Assets\2. Scripts\InGame\EventCtrl.cs" />
      <Compile Include="Assets\2. Scripts\InGame\GameSystemCtrl.cs" />
      <Compile Include="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" />

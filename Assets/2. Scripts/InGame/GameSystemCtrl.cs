@@ -19,6 +19,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public float CameraMoveSpeed = 10f;
 	public float CameraZoomSpeed = 10f;
 
+	[Header("Prefab Settings")]
+	public GameObject AlertForm;
+
 	// [Header("Time Settings")]
 	[HideInInspector]
 	public int StartDay = 1;
@@ -40,6 +43,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Animator UIAnim;
 	public Image SelectedImage;
 	public Text SelectedText;
+
 
 	private int CurrentAnimPos = 0;
 
@@ -72,12 +76,12 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (CurrentAnimPos == 0)
-				MoveQuitUI ();
-			else
+			if (CurrentAnimPos != 0)
 				MoveUI (-CurrentAnimPos);
+			else if (GameObject.FindGameObjectsWithTag ("Alert").Length == 0)
+				MoveQuitUI ();
 		}
-		if (CurrentAnimPos == 0)
+		if (TimeRunning)
 			TouchView ();
 	}
 
@@ -90,6 +94,21 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	/* Event Functions */
+
+	public AlertFormCtrl Alert (string head, string info, int happy = 0, float appadd = 0f, float appsub = 0f) {
+		GameObject form = Instantiate (AlertForm);
+		form.transform.SetParent (UiCanvas.transform);
+		form.transform.localPosition = AlertForm.transform.position;
+		AlertFormCtrl afc = form.GetComponent<AlertFormCtrl> ();
+		afc.HeadText.text = head;
+		afc.InfoText.text = info;
+
+		afc.Happiness = happy;
+		afc.AppAdd = appadd;
+		afc.AppSub = appsub;
+
+		return afc;
+	}
 
 	public void AddMultiple() {
 		TimeMultiple = TimeMultiple < 4 ? TimeMultiple * 2 : 1;
