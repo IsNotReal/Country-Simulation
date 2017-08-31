@@ -65,7 +65,7 @@ public class AlertFormCtrl : MonoBehaviour {
 
 	IEnumerator DestroyThis (float t) {
 		yield return new WaitForSeconds (t);
-		ReturnEvent.SendMessage ("DestroyEvent");
+		ReturnEvent.DestroyEvent ();
 		Destroy (gameObject);
 	}
 }

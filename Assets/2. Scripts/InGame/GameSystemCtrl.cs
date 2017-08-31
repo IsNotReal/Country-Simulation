@@ -33,6 +33,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	[Header("UI Settings")]
 	public Canvas UiCanvas;
 	public Text TimeText;
+	public Color TimeRunColor;
+	public Color TimeStopColor;
 	public Image MultipleImage;
 	public Sprite[] MultipleSprites;
 	public Slider RatingSlider;
@@ -111,19 +113,25 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	public void AddMultiple() {
+		if (!TimeRunning)
+			return;
 		TimeMultiple = TimeMultiple < 4 ? TimeMultiple * 2 : 1;
-		switch (TimeMultiple) {
+		SetMultipleImage (TimeMultiple);
+	}
+
+	void SetMultipleImage(int multiple) {
+		switch (multiple) {
 		case 1:
-			MultipleImage.sprite = MultipleSprites [0];
-			break;
-		case 2:
 			MultipleImage.sprite = MultipleSprites [1];
 			break;
-		case 4:
+		case 2:
 			MultipleImage.sprite = MultipleSprites [2];
 			break;
+		case 4:
+			MultipleImage.sprite = MultipleSprites [3];
+			break;
 		default:
-			MultipleImage.sprite = null;
+			MultipleImage.sprite = MultipleSprites [0];
 			break;
 		}
 		MultipleImage.SetNativeSize ();
@@ -321,10 +329,14 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	public void TimeStop () {
 		TimeRunning = !TimeRunning;
+		TimeText.color = TimeRunning ? TimeRunColor : TimeStopColor;
+		SetMultipleImage (TimeRunning ? TimeMultiple : 0);
 	}
 
 	public void TimeStop (bool time) {
 		TimeRunning = !time;
+		TimeText.color = TimeRunning ? TimeRunColor : TimeStopColor;
+		SetMultipleImage (TimeRunning ? TimeMultiple : 0);
 	}
 
 	public bool TimeCheck (int Day, int Month, int Year) {
