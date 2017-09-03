@@ -30,7 +30,7 @@ public class EventCtrl : MonoBehaviour {
 		EventActivePosition = (int) Random.Range (0, GameSystem.EventAreas.Length); // test code
 
 		thisAnim = gameObject.GetComponent<Animator> ();
-		thisImage = gameObject.GetComponentsInChildren<UnityEngine.UI.Image> () [1];
+		thisImage = gameObject.GetComponentInChildren<UnityEngine.UI.Image> ();
 		StartCoroutine (AddEvent ());
 	}
 
