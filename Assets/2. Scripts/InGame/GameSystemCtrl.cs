@@ -45,7 +45,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Animator UIAnim;
 	public Image SelectedImage;
 	public Text SelectedText;
-
+	public Image ApprovalCircleGraph;
+	public Text ApprovalAgreePercentText;
+	public Text ApprovalDisagreePercentText;
+	public Text AllApprovalPercentText;
 
 	private int CurrentAnimPos = 0;
 
@@ -61,6 +64,24 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	private List<EventCtrl> EventQueue;
 
+	private float[,] ApprovalRatings = new float[3, 9];
+	/* Set Approval Ratings Array values meaning ( Name of Sprite sources )
+	 * 0: { Culture, Defense, Develop, Diplomacy, Food, Fuel, Renewable, Road, Science }
+	 * 1: { Export, GDP, IMF, Import, Law, Religion, Safety, Tax, Welfare }
+	 * 2: { Child, Education, Enterprise, Labor, Market, Medical, Nature, Pleasure, Social }
+	 */
+	private float this[int index1, int index2]{
+		get {
+			return ApprovalRatings[index1, index2];
+		}
+		set {
+			if (value < 0)
+				ApprovalRatings[index1, index2] = 0;
+			if (value > 100f)
+				ApprovalRatings[index1, index2] = 100f;
+		}
+	}
+
 	/* Variables */
 
 	void Start () {
@@ -72,6 +93,11 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		StartDay = System.DateTime.Now.Day;
 		StartMonth = System.DateTime.Now.Month;
 		StartYear = System.DateTime.Now.Year;
+
+		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < ApprovalRatings.GetLength (1); j++)
+				ApprovalRatings [i, j] = 50f;
+		}
 
 		GameStart ();
 	}
@@ -87,12 +113,14 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			TouchView ();
 	}
 
-	void FixedUpdate () {
-		RatingText.text = RatingSlider.value + "%";
-	}
-
 	void GameRun () { // Active this when game time running
-		
+		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < ApprovalRatings.GetLength (1); j++) {
+				ApprovalRatings [i, j] = Random.Range(0, 100f);
+			}
+		}
+
+		SetApprovalUI ();
 	}
 
 	/* Event Functions */
@@ -119,6 +147,24 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		SetMultipleImage (TimeMultiple);
 	}
 
+	public void AddEvent (EventCtrl e) {
+		EventQueue.Add (e);
+	}
+
+	void SetApprovalUI () {
+		float approval = 0;
+		for (int i = 0; i < ApprovalRatings.GetLength(0); i++) {
+			for (int j = 0; j < ApprovalRatings.GetLength (1); j++) {
+				approval += ApprovalRatings [i, j];
+			}
+		}
+		approval /= ApprovalRatings.GetLength (0) * ApprovalRatings.GetLength (1);
+		RatingSlider.value = approval;
+		RatingText.text = (int)RatingSlider.value + "%";
+	}
+
+	/* ↓ UI Functions ↓ */
+
 	void SetMultipleImage(int multiple) {
 		switch (multiple) {
 		case 1:
@@ -135,10 +181,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			break;
 		}
 		MultipleImage.SetNativeSize ();
-	}
-
-	public void AddEvent (EventCtrl e) {
-		EventQueue.Add (e);
+		if (MultipleImage.sprite == MultipleSprites [0]) {
+			MultipleImage.rectTransform.sizeDelta = new Vector2 (48, 48);
+		}
 	}
 
 	void TouchView () {
@@ -196,6 +241,15 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		SelectedText.text = obj.GetComponentInChildren<Text> ().text;
 	}
 
+	public void SetGraphSelected (int selected) {
+		int i = UIAnim.GetInteger ("UINum") - 1;
+
+		ApprovalCircleGraph.fillAmount = ApprovalRatings [i, selected] / 100f;
+		ApprovalAgreePercentText.text = ((int)ApprovalRatings [i, selected]).ToString() + "%";
+		ApprovalDisagreePercentText.text = ((int)(100f - ApprovalRatings [i, selected])).ToString() + "%";
+		AllApprovalPercentText.text = ApprovalRatings [i, selected] / (ApprovalRatings.GetLength (0) * ApprovalRatings.GetLength (1)) + "%";
+	}
+
 	public void MoveLeftUI () {
 		LeftUI.SetTrigger (LeftUI.GetCurrentAnimatorStateInfo (0).IsName ("LeftUIOn") ? "Off" : "On");
 	}
@@ -210,6 +264,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	public void MoveUI (int num) {
+		if (UIAnim.IsInTransition (0))
+			return;
+
 		if (num > 0)
 			CurrentAnimPos = num;
 		else 
@@ -252,7 +309,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		TimeDay = StartDay;
 		TimeMonth = StartMonth;
 		TimeYear = StartYear;
-		StartCoroutine (RunTime ());
+		StartCoroutine (RunTime());
 	}
 
 	IEnumerator RunTime () {
@@ -261,10 +318,15 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		d = TimeDay < 10 ? "0" + TimeDay : TimeDay.ToString();
 		TimeText.text = TimeYear + "." + m + "." + d;
 
-		yield return new WaitForSeconds (AddTimeDelay / TimeMultiple);
-
 		while (!TimeRunning) 
 			yield return null;
+		
+		yield return new WaitForSeconds (AddTimeDelay / TimeMultiple);
+
+		if (!TimeRunning) {
+			StartCoroutine (RunTime ());
+			yield break;
+		}
 
 		TimeDay++;
 
@@ -324,7 +386,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 		GameRun ();
 
-		StartCoroutine (RunTime ());
+		StartCoroutine (RunTime());
 	}
 
 	public void TimeStop () {
