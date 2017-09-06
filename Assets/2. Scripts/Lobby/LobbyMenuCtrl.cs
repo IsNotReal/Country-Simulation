@@ -27,6 +27,10 @@ public class LobbyMenuCtrl : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
+			if (thisAnim.GetBool ("Configure")) {
+				MoveConfigure (false);
+				return;
+			}
 			if (CurrentPage > 0) {
 				int page = CurrentPage;
 				MoveAnim (-CurrentPage);
@@ -38,6 +42,14 @@ public class LobbyMenuCtrl : MonoBehaviour {
 
 	void FixedUpdate () {
 		DifficultyPercentText.text = DifficultySlider.value * 100 / DifficultySlider.maxValue + "%";
+	}
+
+	public void MoveConfigure(bool conf){
+		if (conf)
+			ForegroundAnim.SetTrigger ("Show");
+		else
+			ForegroundAnim.SetTrigger ("Hide");
+		thisAnim.SetBool ("Configure", conf);
 	}
 
 	public void MoveAnim(int num){
