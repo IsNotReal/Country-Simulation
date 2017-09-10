@@ -44,11 +44,6 @@ public class AlertFormCtrl : MonoBehaviour {
 		EventText.text = EventText.text.Replace ("k", "<color='#" + color + "'>" + AppSub.ToString () + "%</color>");
 		HappinessImage.sprite = Happiness < 0 ? HapBad : HapGood;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	string GetHexColor(Color c){
 		string r = ((int)(c.r * 255)).ToString ("X");

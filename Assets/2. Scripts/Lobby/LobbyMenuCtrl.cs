@@ -16,6 +16,11 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	public Slider DifficultySlider;
 	public Text DifficultyPercentText;
 	public Text VersionText;
+	public Text PlayerNameText;
+	public Text TeamNameText;
+	public Toggle[] TeamNumberToggle;
+	public Toggle[] GameLengthToggle;
+	public Slider GameDifficultSlider;
 
 	private int CurrentPage = 0;
 	private Animator thisAnim;
@@ -88,6 +93,14 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	}
 
 	void MoveScene() {
+		PlayerSettings.PlayerName = PlayerNameText.text;
+		PlayerSettings.TeamName = TeamNameText.text;
+		for (int i = 0; i < TeamNumberToggle.Length; i++)
+			PlayerSettings.TeamNumber = TeamNumberToggle [i].isOn ? i + 2 : PlayerSettings.TeamNumber;
+		for (int i = 0; i < GameLengthToggle.Length; i++)
+			PlayerSettings.GameLength = GameLengthToggle [i].isOn ? i + 2 : PlayerSettings.GameLength;
+		PlayerSettings.GameDifficulty = (int)GameDifficultSlider.value;
+
 		SceneManager.LoadScene (GameSceneName);
 	}
 

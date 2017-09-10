@@ -49,6 +49,8 @@
      <Compile Include="Assets\2. Scripts\InGame\AlertFormCtrl.cs" />
      <Compile Include="Assets\2. Scripts\InGame\EventCtrl.cs" />
      <Compile Include="Assets\2. Scripts\InGame\GameSystemCtrl.cs" />
+     <Compile Include="Assets\2. Scripts\InGame\PlayerSettings.cs" />
+     <Compile Include="Assets\2. Scripts\InGame\TextReplacer.cs" />
      <Compile Include="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" />
      <Compile Include="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" />
  <Reference Include="UnityEngine.UI">

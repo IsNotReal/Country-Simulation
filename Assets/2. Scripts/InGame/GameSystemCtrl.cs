@@ -49,6 +49,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Text ApprovalAgreePercentText;
 	public Text ApprovalDisagreePercentText;
 	public Text AllApprovalPercentText;
+	public Image ApprovalCheckApprovalCircleGraph;
+	public Text ApprovalCheckApprovalPercentText;
 
 	private int CurrentAnimPos = 0;
 
@@ -104,7 +106,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (CurrentAnimPos != 0)
+			if (UIAnim.GetCurrentAnimatorStateInfo (0).IsName ("GameUIMoveAR"))
+				MoveApprovalRating (false);
+			else if (CurrentAnimPos != 0)
 				MoveUI (-CurrentAnimPos);
 			else if (GameObject.FindGameObjectsWithTag ("Alert").Length == 0)
 				MoveQuitUI ();
@@ -161,6 +165,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		approval /= ApprovalRatings.GetLength (0) * ApprovalRatings.GetLength (1);
 		RatingSlider.value = approval;
 		RatingText.text = (int)RatingSlider.value + "%";
+		ApprovalCheckApprovalCircleGraph.fillAmount = approval / 100f;
+		ApprovalCheckApprovalPercentText.text = (int)approval + "%";
 	}
 
 	/* ↓ UI Functions ↓ */
@@ -259,6 +265,22 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		TimeStop ();
 	}
 
+	public void MoveApprovalRating(bool isOn){
+		if (UIAnim.GetCurrentAnimatorStateInfo (0).IsName ("GameUIMoveAR") && isOn)
+			return;
+		UIAnim.SetBool ("MoveAR", isOn);
+		UIAnim.SetTrigger ("Start");
+		ForegroundAnim.ResetTrigger ("Show");
+		ForegroundToggle (isOn);
+		TimeStop (isOn);
+		LeftUI.SetTrigger (isOn ? "Destroy" : "Create");
+		if (isOn) {
+			UIAnim.SetInteger ("UINum", 0);
+			UIAnim.SetInteger ("Move", 0);
+			CurrentAnimPos = 0;
+		}
+	}
+
 	public void GotoMainMenu () {
 		SceneManager.LoadScene("LobbyScene");
 	}
@@ -294,7 +316,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	public void MoveUINumSet (int num) {
-			UIAnim.SetInteger ("UINum", num);
+		UIAnim.SetInteger ("UINum", num);
 	}
 
 	void ForegroundToggle (bool isOn) {
