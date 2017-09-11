@@ -7,9 +7,9 @@ public class AlertFormCtrl : MonoBehaviour {
 
 	public EventCtrl ReturnEvent;
 
-	public int Happiness = 0; // i value
-	public float AppAdd = 0f; // j value
-	public float AppSub = 0f; // k value
+	public int Happiness = 0;
+	public float AppAdd = 0f;
+	public float AppSub = 0f;
 
 	public Text HeadText;
 	public Text InfoText;
@@ -37,11 +37,11 @@ public class AlertFormCtrl : MonoBehaviour {
 		string sColor = GetHexColor (SubColor);
 
 		string color = Happiness < 0 ? sColor : aColor;
-		EventText.text = EventText.text.Replace ("i", "<color='#" + color + "'>" + Happiness.ToString () + "</color>");
+		EventText.text = EventText.text.Replace ("{{Happiness}}", "<color='#" + color + "'>" + Happiness.ToString () + "</color>");
 		color = AppAdd < 0 ? sColor : aColor;
-		EventText.text = EventText.text.Replace ("j", "<color='#" + color + "'>" + AppAdd.ToString () + "%</color>");
+		EventText.text = EventText.text.Replace ("{{AppAdd}}", "<color='#" + color + "'>" + AppAdd.ToString () + "%</color>");
 		color = AppSub > 0 ? sColor : aColor;
-		EventText.text = EventText.text.Replace ("k", "<color='#" + color + "'>" + AppSub.ToString () + "%</color>");
+		EventText.text = EventText.text.Replace ("{{AppSub}}", "<color='#" + color + "'>" + AppSub.ToString () + "%</color>");
 		HappinessImage.sprite = Happiness < 0 ? HapBad : HapGood;
 	}
 
