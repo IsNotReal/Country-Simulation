@@ -52,7 +52,9 @@ public class AlertFormCtrl : MonoBehaviour {
 		return r + g + b;
 	}
 
-	public void OffForm () {
+	public void Accept (bool isAccept) {
+		if (isAccept)
+			ReturnEvent.ActiveEvent ();
 		thisAnim.SetTrigger ("Off");
 		GameSystem.TimeStop (false);
 		StartCoroutine (DestroyThis (0.5f));

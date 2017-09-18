@@ -21,6 +21,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	[Header("Prefab Settings")]
 	public GameObject AlertForm;
+	public GameObject EventActive;
 
 	// [Header("Time Settings")]
 	[HideInInspector]
@@ -51,12 +52,19 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Text AllApprovalPercentText;
 	public Image ApprovalCheckApprovalCircleGraph;
 	public Text ApprovalCheckApprovalPercentText;
+	public Image[] PeopleRatingImages = new Image[9];
+	public Image[] MajestyRatingImages = new Image[9];
+	public Image[] DominionRatingImages = new Image[9];
+	public Color GoodColor = new Color (81f / 255f, 181f / 255f, 81f / 255f, 1f);
+	public Color BadColor = new Color (253f / 255f, 69f / 255f, 53f / 255f, 1f);
+	public Color NormalColor = new Color (67f / 255f, 67f / 255f, 67f / 255f, 1f);
+	public Vector2 NormalColorRange = new Vector2 (40f, 60f);
 
 	private int CurrentAnimPos = 0;
 
-	private int TimeDay;
-	private int TimeMonth;
-	private int TimeYear;
+	private static int TimeDay;
+	private static int TimeMonth;
+	private static int TimeYear;
 	private int TimeMultiple = 1;
 	private bool TimeRunning = true;
 
@@ -68,9 +76,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	private float[,] ApprovalRatings = new float[3, 9];
 	/* Set Approval Ratings Array values meaning ( Name of Sprite sources )
-	 * 0: { Culture, Defense, Develop, Diplomacy, Food, Fuel, Renewable, Road, Science }
-	 * 1: { Export, GDP, IMF, Import, Law, Religion, Safety, Tax, Welfare }
-	 * 2: { Child, Education, Enterprise, Labor, Market, Medical, Nature, Pleasure, Social }
+	 * 0: Dominion { Culture, Defense, Develop, Diplomacy, Food, Fuel, Renewable, Road, Science }
+	 * 1: Majesty { Export, GDP, IMF, Import, Law, Religion, Safety, Tax, Welfare }
+	 * 2: People { Child, Education, Enterprise, Labor, Market, Medical, Nature, Pleasure, Social }
 	 */
 	private float this[int index1, int index2]{
 		get {
@@ -101,6 +109,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 				ApprovalRatings [i, j] = 50f;
 		}
 
+		EventInitialize ();
 		GameStart ();
 	}
 
@@ -118,16 +127,36 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	void GameRun () { // Active this when game time running
-		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
-			for (int j = 0; j < ApprovalRatings.GetLength (1); j++) {
-				ApprovalRatings [i, j] = Random.Range(0, 100f);
-			}
-		}
-
 		SetApprovalUI ();
 	}
 
 	/* Event Functions */
+
+	void EventInitialize() {
+		for (int i = 0; i < MaxEventNum; i++) {
+			EventCtrl e = Instantiate (EventActive).GetComponent<EventCtrl> ();
+			int year = StartYear;
+			int month = StartMonth;
+			int day = Random.Range(1, PlayerSettings.GameLength * 365) + StartDay;
+
+			while (day > GetMaxDay (year, month)) {
+				day -= GetMaxDay (year, month);
+				if (month != 12)
+					month++;
+				else {
+					month = 1;
+					year++;
+				}
+			}
+			e.ActiveYear = year;
+			e.ActiveMonth = month;
+			e.ActiveDay = day;
+			e.EventKind = i;
+
+			EventQueue.Add (e);
+		}
+		SortEventQueue ();
+	}
 
 	public AlertFormCtrl Alert (string head, string info, int happy = 0, float appadd = 0f, float appsub = 0f) {
 		GameObject form = Instantiate (AlertForm);
@@ -151,9 +180,19 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		SetMultipleImage (TimeMultiple);
 	}
 
-	public void AddEvent (EventCtrl e) {
-		EventQueue.Add (e);
+	public void RandomRating() {
+		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < ApprovalRatings.GetLength (1); j++) {
+				ApprovalRatings [i, j] = Random.Range(0, 100f);
+			}
+		}
 	}
+
+	public void AddRating(int type, int index, float value = 0) {
+		ApprovalRatings [type, index] += value;
+	}
+
+	/* ↓ UI Functions ↓ */
 
 	void SetApprovalUI () {
 		float approval = 0;
@@ -168,8 +207,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		ApprovalCheckApprovalCircleGraph.fillAmount = approval / 100f;
 		ApprovalCheckApprovalPercentText.text = (int)approval + "%";
 	}
-
-	/* ↓ UI Functions ↓ */
 
 	void SetMultipleImage(int multiple) {
 		switch (multiple) {
@@ -250,6 +287,18 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public void SetGraphSelected (int selected) {
 		int i = UIAnim.GetInteger ("UINum") - 1;
 
+		switch (i) { // AnimInteger to ArrayIndex Convert
+		case 0:
+			i = 2;
+			break;
+		case 1:
+			i = 1;
+			break;
+		case 2:
+			i = 0;
+			break;
+		}
+
 		ApprovalCircleGraph.fillAmount = ApprovalRatings [i, selected] / 100f;
 		ApprovalAgreePercentText.text = ((int)ApprovalRatings [i, selected]).ToString() + "%";
 		ApprovalDisagreePercentText.text = ((int)(100f - ApprovalRatings [i, selected])).ToString() + "%";
@@ -305,6 +354,39 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			ForegroundToggle (true);
 			TimeStop (true);
 			break;
+		case 2:
+			int j = UIAnim.GetInteger ("UINum") - 1;
+			if (j == 0) {
+				for (int i = 0; i < PeopleRatingImages.Length; i++) {
+					Color color = NormalColor;
+					if (ApprovalRatings [2, i] < NormalColorRange.x)
+						color = BadColor;
+					else if (ApprovalRatings [2, i] > NormalColorRange.y)
+						color = GoodColor;
+					PeopleRatingImages [i].color = color;
+				}
+			}
+			if (j == 1) {
+				for (int i = 0; i < MajestyRatingImages.Length; i++) {
+					Color color = NormalColor;
+					if (ApprovalRatings [1, i] < NormalColorRange.x)
+						color = BadColor;
+					else if (ApprovalRatings [1, i] > NormalColorRange.y)
+						color = GoodColor;
+					MajestyRatingImages [i].color = color;
+				}
+			}
+			if (j == 1) {
+				for (int i = 0; i < DominionRatingImages.Length; i++) {
+					Color color = NormalColor;
+					if (ApprovalRatings [0, i] < NormalColorRange.x)
+						color = BadColor;
+					else if (ApprovalRatings [0, i] > NormalColorRange.y)
+						color = GoodColor;
+					DominionRatingImages [i].color = color;
+				}
+			}
+			break;
 		}
 
 		UIAnim.SetInteger ("Move", num);
@@ -336,11 +418,11 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	IEnumerator RunTime () {
 		string m, d;
-		m = TimeMonth < 10 ? "0" + TimeMonth : TimeMonth.ToString();
-		d = TimeDay < 10 ? "0" + TimeDay : TimeDay.ToString();
+		m = TimeMonth < 10 ? "0" + TimeMonth : TimeMonth.ToString ();
+		d = TimeDay < 10 ? "0" + TimeDay : TimeDay.ToString ();
 		TimeText.text = TimeYear + "." + m + "." + d;
 
-		while (!TimeRunning) 
+		while (!TimeRunning)
 			yield return null;
 		
 		yield return new WaitForSeconds (AddTimeDelay / TimeMultiple);
@@ -349,50 +431,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			StartCoroutine (RunTime ());
 			yield break;
 		}
-
 		TimeDay++;
 
-		int maxDay = 0;
-		switch (TimeMonth) {
-		case 1:
-			maxDay = 31;
-			break;
-		case 2:
-			maxDay = 28;
-			break;
-		case 3:
-			maxDay = 31;
-			break;
-		case 4:
-			maxDay = 30;
-			break;
-		case 5:
-			maxDay = 31;
-			break;
-		case 6:
-			maxDay = 30;
-			break;
-		case  7:
-			maxDay = 31;
-			break;
-		case 8:
-			maxDay = 31;
-			break;
-		case 9:
-			maxDay = 30;
-			break;
-		case 10:
-			maxDay = 31;
-			break;
-		case 11:
-			maxDay = 30;
-			break;
-		case 12:
-			maxDay = 31;
-			break;
-		}
-
-		if (TimeDay > maxDay) {
+		if (TimeDay > GetMaxDay (TimeYear, TimeMonth)) {
 			TimeDay = 1;
 			if (TimeMonth == 12) {
 				TimeMonth = 1;
@@ -401,14 +442,23 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 				TimeMonth++;
 		}
 
-		if (EventQueue.Count > 0 && TimeCheck (EventQueue [0].ActiveDay, EventQueue [0].ActiveMonth, EventQueue [0].ActiveYear)) {
+		while (EventQueue.Count > 0 && TimeCheck (EventQueue [0].ActiveDay, EventQueue [0].ActiveMonth, EventQueue [0].ActiveYear, false)) {
 			EventQueue [0].enabled = true;
+//			Debug.Log (EventQueue [0].ActiveYear + ". " + EventQueue [0].ActiveMonth + ". " + EventQueue [0].ActiveDay);
 			EventQueue.RemoveAt (0);
+			SortEventQueue ();
+//			for (int i = 0; i < EventQueue.Count; i++)
+//				Debug.Log (i + ": " + EventQueue [i].ActiveYear + ". " + EventQueue [i].ActiveMonth + ". " + EventQueue [i].ActiveDay);
+		}
+
+		if (StartYear + PlayerSettings.GameLength <= TimeYear && StartMonth <= TimeMonth && StartDay <= TimeDay) {
+			//Game End
+			Debug.Log ("Game End");
+			yield break;
 		}
 
 		GameRun ();
-
-		StartCoroutine (RunTime());
+		StartCoroutine (RunTime ());
 	}
 
 	public void TimeStop () {
@@ -423,7 +473,71 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		SetMultipleImage (TimeRunning ? TimeMultiple : 0);
 	}
 
-	public bool TimeCheck (int Day, int Month, int Year) {
-		return Day == TimeDay && Month == TimeMonth && Year == TimeYear;
+	void SortEventQueue() {
+		for (int loop = 0; loop < EventQueue.Count - 1; loop++) {
+			for (int i = 0; i < EventQueue.Count - 1 - loop; i++) {
+				if (EventQueue [i].ActiveYear > EventQueue [i + 1].ActiveYear) {
+					EventCtrl temp = EventQueue [i];
+					EventQueue [i] = EventQueue [i + 1];
+					EventQueue [i + 1] = temp;
+				}
+			}
+		}
+		for (int loop = 0; loop < EventQueue.Count - 1; loop++) {
+			for (int i = 0; i < EventQueue.Count - 1 - loop; i++) {
+				if (EventQueue [i].ActiveYear == EventQueue [i + 1].ActiveYear && EventQueue [i].ActiveMonth > EventQueue [i + 1].ActiveMonth) {
+					EventCtrl temp = EventQueue [i];
+					EventQueue [i] = EventQueue [i + 1];
+					EventQueue [i + 1] = temp;
+				}
+			}
+		}
+		for (int loop = 0; loop < EventQueue.Count - 1; loop++) {
+			for (int i = 0; i < EventQueue.Count - 1 - loop; i++) {
+				if (EventQueue [i].ActiveYear == EventQueue [i + 1].ActiveYear && EventQueue [i].ActiveMonth == EventQueue [i + 1].ActiveMonth && EventQueue [i].ActiveDay > EventQueue [i + 1].ActiveDay) {
+					EventCtrl temp = EventQueue [i];
+					EventQueue [i] = EventQueue [i + 1];
+					EventQueue [i + 1] = temp;
+				}
+			}
+		}
+	}
+
+	public static bool TimeCheck (int Day, int Month, int Year, bool isExact = true) {
+		return isExact ? 
+			Day == TimeDay && Month == TimeMonth && Year == TimeYear :
+			Year < TimeYear || Year == TimeYear && Month < TimeMonth || Year == TimeYear && Month == TimeMonth && Day <= TimeDay;
+	}
+
+	public static int GetMaxDay (int Year, int Month){
+		switch (Month) {
+		case 1:
+			return 31;
+		case 2:
+			return Year % 4 == 0 && Year % 100 != 0 || Year % 400 == 0 ? 29 : 28;
+		case 3:
+			return 31;
+		case 4:
+			return 30;
+		case 5:
+			return 31;
+		case 6:
+			return 30;
+		case  7:
+			return 31;
+		case 8:
+			return 31;
+		case 9:
+			return 30;
+		case 10:
+			return 31;
+		case 11:
+			return 30;
+		case 12:
+			return 31;
+		default:
+			Debug.LogError ("Month Number Error");
+			return 31;
+		}
 	}
 }

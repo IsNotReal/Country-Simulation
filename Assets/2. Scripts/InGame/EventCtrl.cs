@@ -16,6 +16,7 @@ public class EventCtrl : MonoBehaviour {
 	public int ActiveDay = 1;
 	public int ActiveMonth = 1;
 	public int ActiveYear = 2017;
+	public float DestroyTime = 10f;
 
 	[Header("Other Settings")]
 	public Sprite PositiveImage;
@@ -24,6 +25,7 @@ public class EventCtrl : MonoBehaviour {
 	private GameSystemCtrl GameSystem;
 	private Animator thisAnim;
 	private UnityEngine.UI.Image thisImage;
+	private bool Actived = false;
 
 	void Awake() {
 		GameSystem = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameSystemCtrl> ();
@@ -31,7 +33,6 @@ public class EventCtrl : MonoBehaviour {
 
 		thisAnim = gameObject.GetComponent<Animator> ();
 		thisImage = gameObject.GetComponentInChildren<UnityEngine.UI.Image> ();
-		StartCoroutine (AddEvent ());
 	}
 
 	void Start () {
@@ -47,14 +48,20 @@ public class EventCtrl : MonoBehaviour {
 		thisImage.SetNativeSize ();
 		thisAnim.SetTrigger ("On");
 
+		StartCoroutine (AutoDestroy ());
+	}
+
+	public void ActiveEvent() {
+		Debug.Log ("Event Actived, Event Kind: " + EventKind);
 		switch(EventKind){
 		default:
-			Debug.Log ("Event Actived, Event Kind: " + EventKind);
+			GameSystem.RandomRating ();
 			break;
 		}
 	}
 
 	public void Alert () {
+		Actived = true;
 		if (GameSystem == null) {
 			Debug.LogError ("GameSystem can't null, Check EventSystem in GameController tag");
 			return;
@@ -67,20 +74,20 @@ public class EventCtrl : MonoBehaviour {
 
 	public void DestroyEvent () {
 		thisAnim.SetTrigger ("Off");
-		StartCoroutine (DeleteObject ());
+		StartCoroutine (DeleteObject (1f));
 	}
 
-	IEnumerator DeleteObject () {
-		yield return new WaitForSeconds (1f);
+	IEnumerator AutoDestroy () {
+		yield return new WaitForSeconds (DestroyTime);
+		if (!Actived)
+			DestroyEvent ();
+	}
+
+	IEnumerator DeleteObject (float time) {
+		yield return new WaitForSeconds (time);
 		gameObject.transform.SetParent (null);
 		gameObject.transform.position = Vector3.zero;
 		gameObject.SetActive (false);
 		// Destroy (gameObject);
 	}
-
-	IEnumerator AddEvent(){
-		yield return new WaitForEndOfFrame ();
-		GameSystem.AddEvent (this);
-	}
-
 }
