@@ -156,6 +156,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			EventQueue.Add (e);
 		}
 		SortEventQueue ();
+
+		EventQueue [0].ActiveDay = StartDay + 1;
+		EventQueue [0].ActiveMonth = StartMonth;
+		EventQueue [0].ActiveYear = StartYear;
 	}
 
 	public AlertFormCtrl Alert (string head, string info, int happy = 0, float appadd = 0f, float appsub = 0f) {
@@ -444,11 +448,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 		while (EventQueue.Count > 0 && TimeCheck (EventQueue [0].ActiveDay, EventQueue [0].ActiveMonth, EventQueue [0].ActiveYear, false)) {
 			EventQueue [0].enabled = true;
-//			Debug.Log (EventQueue [0].ActiveYear + ". " + EventQueue [0].ActiveMonth + ". " + EventQueue [0].ActiveDay);
 			EventQueue.RemoveAt (0);
 			SortEventQueue ();
-//			for (int i = 0; i < EventQueue.Count; i++)
-//				Debug.Log (i + ": " + EventQueue [i].ActiveYear + ". " + EventQueue [i].ActiveMonth + ". " + EventQueue [i].ActiveDay);
 		}
 
 		if (StartYear + PlayerSettings.GameLength <= TimeYear && StartMonth <= TimeMonth && StartDay <= TimeDay) {

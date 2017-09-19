@@ -4,28 +4,12 @@
     <Files>
       <File FileName="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" Line="1" Column="1" />
       <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="81" Column="49" />
-      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="447" Column="6" />
+      <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="1" Column="1" />
+      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="160" Column="42" />
       <File FileName="Assets\2. Scripts\InGame\PlayerSettings.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\AlertFormCtrl.cs" Line="57" Column="31" />
+      <File FileName="Assets\2. Scripts\InGame\AlertFormCtrl.cs" Line="1" Column="1" />
       <File FileName="Assets\2. Scripts\InGame\TextReplacer.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="Country-Simulation" expanded="True">
-            <Node name="Assembly-CSharp" expanded="True">
-              <Node name="2. Scripts" expanded="True">
-                <Node name="InGame" expanded="True">
-                  <Node name="GameSystemCtrl.cs" selected="True" />
-                </Node>
-                <Node name="Lobby" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
