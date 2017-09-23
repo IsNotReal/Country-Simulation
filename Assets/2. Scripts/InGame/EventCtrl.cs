@@ -13,34 +13,30 @@ public class EventCtrl : MonoBehaviour {
 	public bool isPositive = true;
 
 	[Header("Active Time Settings")]
-	public int ActiveDay = 1;
-	public int ActiveMonth = 1;
-	public int ActiveYear = 2017;
+	public Vector2 ActiveTimeRange = new Vector2 (10f, 15f);
 	public float DestroyTime = 10f;
 
 	[Header("Other Settings")]
 	public Sprite PositiveImage;
 	public Sprite NegativeImage;
 
+	private float ActiveTime;
 	private GameSystemCtrl GameSystem;
 	private Animator thisAnim;
 	private UnityEngine.UI.Image thisImage;
 	private bool Actived = false;
 
 	void Awake() {
+		ActiveTime = Random.Range (ActiveTimeRange.x, ActiveTimeRange.y);
 		GameSystem = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameSystemCtrl> ();
 		EventActivePosition = (int) Random.Range (0, GameSystem.EventAreas.Length); // test code
 
 		thisAnim = gameObject.GetComponent<Animator> ();
 		thisImage = gameObject.GetComponentInChildren<UnityEngine.UI.Image> ();
+		StartCoroutine (AutoActive ());
 	}
 
 	void Start () {
-		if (ActiveDay <= 0 || ActiveMonth <= 0) {
-			Debug.LogError ("Active time can't set under 0");
-			return;
-		}
-
 		gameObject.transform.SetParent (GameSystem.EventAreas[EventActivePosition].transform);
 		gameObject.transform.localScale = Vector3.zero;
 		gameObject.transform.localPosition = Vector3.zero;
@@ -52,6 +48,7 @@ public class EventCtrl : MonoBehaviour {
 	}
 
 	public void ActiveEvent() {
+		GameSystem.AddHappiness (isPositive);
 		Debug.Log ("Event Actived, Event Kind: " + EventKind);
 		switch(EventKind){
 		default:
@@ -77,14 +74,32 @@ public class EventCtrl : MonoBehaviour {
 		StartCoroutine (DeleteObject (1f));
 	}
 
+	IEnumerator AutoActive () {
+		while (!GameSystemCtrl.TimeRunning)
+			yield return null;
+		yield return new WaitForSeconds (ActiveTime);
+		if (!GameSystemCtrl.TimeRunning) {
+			StartCoroutine (AutoActive ());
+			yield break;
+		}
+		this.enabled = true;
+	}
+
 	IEnumerator AutoDestroy () {
+		while (!GameSystemCtrl.TimeRunning)
+			yield return null;
 		yield return new WaitForSeconds (DestroyTime);
+		if (!GameSystemCtrl.TimeRunning) {
+			StartCoroutine (AutoDestroy ());
+			yield break;
+		}
 		if (!Actived)
 			DestroyEvent ();
 	}
 
 	IEnumerator DeleteObject (float time) {
 		yield return new WaitForSeconds (time);
+		GameSystem.EventCreate ();
 		gameObject.transform.SetParent (null);
 		gameObject.transform.position = Vector3.zero;
 		gameObject.SetActive (false);

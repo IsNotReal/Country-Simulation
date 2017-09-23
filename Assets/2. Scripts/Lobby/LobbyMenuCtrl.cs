@@ -93,6 +93,8 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	}
 
 	void MoveScene() {
+		if (PlayerNameText.text == "" || TeamNameText.text == "")
+			return;
 		PlayerSettings.PlayerName = PlayerNameText.text;
 		PlayerSettings.TeamName = TeamNameText.text;
 		for (int i = 0; i < TeamNumberToggle.Length; i++)

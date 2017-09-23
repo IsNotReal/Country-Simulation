@@ -2,13 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\2. Scripts\InGame\GameSystemCtrl.cs">
     <Files>
-      <File FileName="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="160" Column="42" />
-      <File FileName="Assets\2. Scripts\InGame\PlayerSettings.cs" Line="1" Column="1" />
+      <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="51" Column="40" />
       <File FileName="Assets\2. Scripts\InGame\AlertFormCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\InGame\TextReplacer.cs" Line="1" Column="1" />
+      <File FileName="Assets\2. Scripts\InGame\TextReplacer.cs" Line="22" Column="3" />
+      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="103" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
