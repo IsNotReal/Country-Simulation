@@ -48,6 +48,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Animator GameExitUI;
 	public Animator ForegroundAnim;
 	public Animator UIAnim;
+	public Animator ConfigureUI;
 	public Image SelectedImage;
 	public Text SelectedText;
 	public Image ApprovalCircleGraph;
@@ -95,20 +96,12 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	private int[,] ApprovalPoints = new int[3, 9];
 	private float[,] Investments = new float[3, 9];
-	private float[,] ApprovalRatings = new float[3, 9];
-	private float this[int index1, int index2]{
-		get {
-			return ApprovalRatings[index1, index2];
-		}
-		set {
-			if (value < 0)
-				ApprovalRatings [index1, index2] = 0;
-			if (value > 100f)
-				ApprovalRatings [index1, index2] = 100f;
-		}
-	}
+	private float[,] AddedInvest = new float[3, 9];
+	private float[,] GoodApprovalRatings = new float[3, 9];
+	private float[,] BadApprovalRatings = new float[3, 9];
 
 	/* Variables */
+
 
 	void InitializeValues() {
 		StartViewSize = Camera.main.orthographicSize;
@@ -116,11 +109,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		StartDay = System.DateTime.Now.Day;
 		StartMonth = System.DateTime.Now.Month;
 		StartYear = System.DateTime.Now.Year;
-
-		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
-			for (int j = 0; j < ApprovalRatings.GetLength (1); j++)
-				ApprovalRatings [i, j] = 50f;
-		}
 
 		for (int i = 0; i < ApprovalPoints.GetLength (0); i++) {
 			for (int j = 0; j < ApprovalPoints.GetLength (1); j++)
@@ -130,8 +118,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	/* Initializes */
 
+
 	void Awake () {
-		GetVotersState (true, 0, 0);
 		InitializeValues ();
 	}
 
@@ -141,7 +129,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (UIAnim.GetCurrentAnimatorStateInfo (0).IsName ("GameUIMoveAR"))
+			if (ConfigureUI.GetCurrentAnimatorStateInfo (0).IsName ("GameExitOn"))
+				ConfigureUI.SetTrigger ("Off");
+			else if (UIAnim.GetCurrentAnimatorStateInfo (0).IsName ("GameUIMoveAR"))
 				MoveApprovalRating (false);
 			else if (CurrentAnimPos != 0)
 				MoveUI (-CurrentAnimPos);
@@ -152,11 +142,70 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			TouchView ();
 	}
 
-	void GameRun () { // Active this when game time running
+	void DayRun () {
 		SetApprovalUI ();
 	}
 
+	void MonthRun () {
+
+	}
+
+	void YearRun () {
+
+	}
+
 	/* Event Functions */
+
+
+	void ApplyInvest () {
+		for (int i = 0; i < AddedInvest.GetLength (0); i++) {
+			for (int j = 0; j < AddedInvest.GetLength (1); j++) {
+				if (AddedInvest [i, j] == 0)
+					continue;
+				else if (AddedInvest [i, j] > 0)
+					GoodApprovalRatings [i, j] += Mathf.Abs ((int)(AddedInvest [i, j] / GetVotersState (true, i, j)));
+				else
+					BadApprovalRatings [i, j] += Mathf.Abs ((int)(-AddedInvest [i, j] / GetVotersState (false, i, j)));
+				AddedInvest [i, j] = 0;
+				Debug.Log ("Good: " + GoodApprovalRatings [i, j] + ", Bad: " + BadApprovalRatings [i, j]);
+			}
+		}
+
+	}
+
+	public void AddInvest (bool isAdd){
+		int i = UIAnim.GetInteger ("UINum") - 1;
+		switch (i) { // AnimInteger to ArrayIndex Convert
+		case 0:
+			i = 2;
+			break;
+		case 1:
+			i = 1;
+			break;
+		case 2:
+			i = 0;
+			break;
+		}
+
+		float addNum = 0;
+		if (Investments [i, SelectedApproval] < 10f)
+			addNum = 0.5f;
+		else if (Investments [i, SelectedApproval] < 100f)
+			addNum = 5f;
+		else
+			addNum = 50f;
+
+		if (!isAdd && Investments [i, SelectedApproval] <= 0) {
+			Investments [i, SelectedApproval] = 0;
+			return;
+		}
+
+		addNum *= isAdd ? 1 : -1;
+		Investments [i, SelectedApproval] = Investments [i, SelectedApproval] + addNum;
+		AddedInvest [i, SelectedApproval] += addNum;
+
+		SetGraphSelected (SelectedApproval);
+	}
 
 	public float GetVotersState(bool isGood, int array, int approval){
 		string arrname = "";
@@ -295,7 +344,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			Happiness++;
 		else
 			Unhappiness++;
-
 		HappinessText.text = Happiness.ToString();
 		UnhappinessText.text = Unhappiness.ToString();
 	}
@@ -328,27 +376,100 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	public void RandomRating() {
-		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
-			for (int j = 0; j < ApprovalRatings.GetLength (1); j++)
-				ApprovalRatings [i, j] += Random.Range (-10f, 10f);
+		for (int i = 0; i < GoodApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < GoodApprovalRatings.GetLength (1); j++)
+				GoodApprovalRatings [i, j] += (int)Random.Range (0, 100f);
 		}
+		for (int i = 0; i < BadApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < BadApprovalRatings.GetLength (1); j++)
+				BadApprovalRatings [i, j] += (int)Random.Range (0, 100f);
+		}
+		SetApprovalUI ();
+	}
+
+	float AllApprovalPercent(float num = 1, bool isGood = true) {
+		float ga = 0;
+		float ba = 0;
+		for (int i = 0; i < GoodApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < GoodApprovalRatings.GetLength (1); j++)
+				ga += GoodApprovalRatings [i, j];
+		}
+		for (int i = 0; i < BadApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < BadApprovalRatings.GetLength (1); j++)
+				ba += BadApprovalRatings [i, j];
+		}
+		if (ga + ba == 0)
+			return 0.5f * num;
+		return (isGood ? ga : ba) / (ga + ba) * num;
+	}
+
+	float AllApprovalPercent(int index1, int index2, float num = 1, bool isGood = true) {
+		if (GoodApprovalRatings [index1, index2] + BadApprovalRatings [index1, index2] == 0)
+			return 0.5f * num ;
+		return (isGood ? GoodApprovalRatings [index1, index2] : BadApprovalRatings [index1, index2]) / (GoodApprovalRatings [index1, index2] + BadApprovalRatings [index1, index2]) * num;
 	}
 
 	/* ↓ UI Functions ↓ */
 
-	void SetApprovalUI () {
-		float approval = 0;
-		for (int i = 0; i < ApprovalRatings.GetLength(0); i++) {
-			for (int j = 0; j < ApprovalRatings.GetLength (1); j++) 
-				approval += ApprovalRatings [i, j];
+
+	void TouchView () {
+		Vector3 CamPos = Camera.main.transform.position;
+		float mul = (MaxViewSize - CurrentViewSize) / MinViewSize;
+		CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
+		Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
+
+		// View Move
+		if (Input.touches.Length == 1) {
+			if (CurrentViewSize < MaxViewSize) {
+				CamPos.x = Mathf.Clamp (CamPos.x - Input.touches[0].deltaPosition.x * CameraMoveSpeed, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
+				CamPos.y = Mathf.Clamp (CamPos.y - Input.touches[0].deltaPosition.y * CameraMoveSpeed, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
+				CamPos.z = Camera.main.transform.position.z;
+				Camera.main.transform.position = CamPos;
+			} else 
+				Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
 		}
-		approval /= ApprovalRatings.GetLength (0) * ApprovalRatings.GetLength (1);
 
+		// View Zoom
+		if (Input.touches.Length == 2) {
 
-		RatingSlider.value = approval;
-		RatingText.text = (int)RatingSlider.value + "%";
-		ApprovalCheckApprovalCircleGraph.fillAmount = approval / 100f;
-		ApprovalCheckApprovalPercentText.text = (int)approval + "%";
+			for (int i = 0; i < EventAreas.Length; i++)
+				EventAreas [i].transform.localScale = Vector3.one * CurrentViewSize;
+
+			/* Code for Test
+			if (Input.GetAxis ("Mouse ScrollWheel") != 0) 
+				CurrentViewSize -= Input.GetAxis ("Mouse ScrollWheel") * CameraZoomSpeed;
+			*/
+
+			if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
+				if (StartTouchDistance < 0) {
+					StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+					return;
+				}
+				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+				CurrentViewSize -= (currentDistance / StartTouchDistance - 1) * CameraZoomSpeed;
+
+				if (CurrentViewSize < MaxViewSize) {
+					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
+					CamPos.y = Mathf.Clamp (CamPos.y, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
+					CamPos.z = Camera.main.transform.position.z;
+					Camera.main.transform.position = CamPos;
+				} else 
+					Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
+
+			} else
+				StartTouchDistance = -1;
+		}
+	}
+
+	public void MoveConfigureUI () {
+		ConfigureUI.SetTrigger (ConfigureUI.GetCurrentAnimatorStateInfo (0).IsName ("GameExitOn") ? "Off" : "On");
+	}
+
+	void SetApprovalUI () {
+		RatingSlider.value = AllApprovalPercent (100);
+		RatingText.text = RatingSlider.value.ToString ("F0") + "%";
+		ApprovalCheckApprovalCircleGraph.fillAmount = AllApprovalPercent();
+		ApprovalCheckApprovalPercentText.text = AllApprovalPercent (100).ToString ("F0") + "%";
 	}
 
 	void SetMultipleImage(int multiple) {
@@ -372,55 +493,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		}
 	}
 
-	void TouchView () {
-		Vector3 CamPos = Camera.main.transform.position;
-		float mul = (MaxViewSize - CurrentViewSize) / MinViewSize;
-		CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
-		Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
-
-		// View Move
-		if (Input.touches.Length == 1) {
-			if (CurrentViewSize < MaxViewSize) {
-				CamPos.x = Mathf.Clamp (CamPos.x - Input.touches[0].deltaPosition.x * CameraMoveSpeed, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
-				CamPos.y = Mathf.Clamp (CamPos.y - Input.touches[0].deltaPosition.y * CameraMoveSpeed, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
-				CamPos.z = Camera.main.transform.position.z;
-				Camera.main.transform.position = CamPos;
-			} else 
-				Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
-		}
-
-		// View Zoom
-		if (Input.touches.Length == 2) {
-			
-			for (int i = 0; i < EventAreas.Length; i++)
-				EventAreas [i].transform.localScale = Vector3.one * CurrentViewSize;
-			
-			/* Code for Test
-			if (Input.GetAxis ("Mouse ScrollWheel") != 0) 
-				CurrentViewSize -= Input.GetAxis ("Mouse ScrollWheel") * CameraZoomSpeed;
-			*/
-
-			if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
-				if (StartTouchDistance < 0) {
-					StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-					return;
-				}
-				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-				CurrentViewSize -= (currentDistance / StartTouchDistance - 1) * CameraZoomSpeed;
-
-				if (CurrentViewSize < MaxViewSize) {
-					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
-					CamPos.y = Mathf.Clamp (CamPos.y, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
-					CamPos.z = Camera.main.transform.position.z;
-					Camera.main.transform.position = CamPos;
-				} else 
-					Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
-				
-			} else
-				StartTouchDistance = -1;
-		}
-	}
-
 	public void SetSelected () {
 		GameObject obj = EventSystem.current.currentSelectedGameObject;
 		SelectedImage.sprite = obj.GetComponentsInChildren<Image> ()[1].sprite;
@@ -440,42 +512,13 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			i = 0;
 			break;
 		}
-
-		ApprovalCircleGraph.fillAmount = ApprovalRatings [i, selected] / 100f;
-		ApprovalAgreePercentText.text = ((int)ApprovalRatings [i, selected]).ToString() + "%";
-		ApprovalDisagreePercentText.text = ((int)(100f - ApprovalRatings [i, selected])).ToString() + "%";
-		AllApprovalPercentText.text = (ApprovalRatings [i, selected] / (ApprovalRatings.GetLength (0) * ApprovalRatings.GetLength (1))).ToString ("N2") + "%";
-		ApprovalInvestNumText.text = "$" + Investments [i, selected].ToString ("N2") + "G";
+			
+		ApprovalCircleGraph.fillAmount = AllApprovalPercent (i, selected);
+		ApprovalAgreePercentText.text = AllApprovalPercent (i, selected, 100).ToString ("F0") + "%";
+		ApprovalDisagreePercentText.text = AllApprovalPercent (i, selected, 100, false).ToString ("F0") + "%";
+		AllApprovalPercentText.text = AllApprovalPercent (i, selected, 100).ToString ("F2") + "%";
+		ApprovalInvestNumText.text = "$" + Investments [i, selected].ToString ("F2") + "G";
 		SelectedApproval = selected;
-	}
-
-	public void AddInvest (bool isAdd){
-		int i = UIAnim.GetInteger ("UINum") - 1;
-		switch (i) { // AnimInteger to ArrayIndex Convert
-		case 0:
-			i = 2;
-			break;
-		case 1:
-			i = 1;
-			break;
-		case 2:
-			i = 0;
-			break;
-		}
-
-		float addNum = 0;
-		if (Investments [i, SelectedApproval] < 10f)
-			addNum = isAdd ? 0.5f : -0.5f;
-		else if (Investments [i, SelectedApproval] < 100f)
-			addNum = isAdd ? 5f : -5f;
-		else
-			addNum = isAdd ? 50f : -50f;
-		
-		Investments [i, SelectedApproval] = Investments [i, SelectedApproval] + addNum <= 0 ? 0 : Investments [i, SelectedApproval] + addNum;
-
-		ApprovalRatings [i, SelectedApproval] += (int)(addNum / GetVotersState (isAdd, i, SelectedApproval));
-//		Debug.Log ("AddedMoney: " + addNum + ", Point" + GetVotersState (isAdd, i, SelectedApproval) + ", Result: " + (int)(addNum / GetVotersState (isAdd, i, SelectedApproval)));
-		SetGraphSelected (SelectedApproval);
 	}
 
 	public void MoveLeftUI () {
@@ -528,13 +571,17 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			TimeStop (true);
 			break;
 		case 2:
+		case -3:
+			if (num == -3)
+				ApplyInvest ();
+			
 			int j = UIAnim.GetInteger ("UINum") - 1;
 			if (j == 0) {
 				for (int i = 0; i < PeopleRatingImages.Length; i++) {
 					Color color = NormalColor;
-					if (ApprovalRatings [2, i] < NormalColorRange.x)
+					if (AllApprovalPercent (2, i, 100) < NormalColorRange.x)
 						color = BadColor;
-					else if (ApprovalRatings [2, i] > NormalColorRange.y)
+					else if (AllApprovalPercent (2, i, 100) > NormalColorRange.y)
 						color = GoodColor;
 					PeopleRatingImages [i].color = color;
 				}
@@ -542,9 +589,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			if (j == 1) {
 				for (int i = 0; i < MajestyRatingImages.Length; i++) {
 					Color color = NormalColor;
-					if (ApprovalRatings [1, i] < NormalColorRange.x)
+					if (AllApprovalPercent (1, i, 100) < NormalColorRange.x)
 						color = BadColor;
-					else if (ApprovalRatings [1, i] > NormalColorRange.y)
+					else if (AllApprovalPercent (1, i, 100) > NormalColorRange.y)
 						color = GoodColor;
 					MajestyRatingImages [i].color = color;
 				}
@@ -552,9 +599,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			if (j == 1) {
 				for (int i = 0; i < DominionRatingImages.Length; i++) {
 					Color color = NormalColor;
-					if (ApprovalRatings [0, i] < NormalColorRange.x)
+					if (AllApprovalPercent (0, i, 100) < NormalColorRange.x)
 						color = BadColor;
-					else if (ApprovalRatings [0, i] > NormalColorRange.y)
+					else if (AllApprovalPercent (0, i, 100) > NormalColorRange.y)
 						color = GoodColor;
 					DominionRatingImages [i].color = color;
 				}
@@ -581,6 +628,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	/* ↓ Run Functions ↓ */
+
 
 	void GameStart () {
 		TimeDay = StartDay;
@@ -611,8 +659,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			if (TimeMonth == 12) {
 				TimeMonth = 1;
 				TimeYear++;
+				YearRun ();
 			} else
 				TimeMonth++;
+			MonthRun ();
 		}
 
 		if (StartYear + PlayerSettings.GameLength <= TimeYear && StartMonth <= TimeMonth && StartDay <= TimeDay) {
@@ -621,7 +671,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			yield break;
 		}
 
-		GameRun ();
+		DayRun ();
 		StartCoroutine (RunTime ());
 	}
 

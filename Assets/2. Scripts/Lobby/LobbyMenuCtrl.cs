@@ -32,16 +32,7 @@ public class LobbyMenuCtrl : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (thisAnim.GetBool ("Configure")) {
-				MoveConfigure (false);
-				return;
-			}
-			if (CurrentPage > 0) {
-				int page = CurrentPage;
-				MoveAnim (-CurrentPage);
-				CurrentPage = page - 1;
-			} else 
-				GameExitAnim ();
+			MoveAnim ();
 		}
 	}
 
@@ -57,10 +48,22 @@ public class LobbyMenuCtrl : MonoBehaviour {
 		thisAnim.SetBool ("Configure", conf);
 	}
 
-	public void MoveAnim(int num){
-		
-		if (num > 0 && CurrentPage == 3) {
+	public void MoveAnim(int num = 0){
+		if (num == 3 && CurrentPage == 3) {
 			MoveScene ();
+			return;
+		}
+		if (num == 0) {
+			if (thisAnim.GetBool ("Configure")) {
+				MoveConfigure (false);
+				return;
+			}
+			if (CurrentPage > 0) {
+				int page = CurrentPage;
+				MoveAnim (-CurrentPage);
+				CurrentPage = page - 1;
+			} else
+				GameExitAnim ();
 			return;
 		}
 
