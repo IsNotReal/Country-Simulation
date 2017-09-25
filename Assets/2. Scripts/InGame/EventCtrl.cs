@@ -103,6 +103,6 @@ public class EventCtrl : MonoBehaviour {
 		gameObject.transform.SetParent (null);
 		gameObject.transform.position = Vector3.zero;
 		gameObject.SetActive (false);
-		Destroy (gameObject);
+		// Destroy (gameObject);
 	}
 }
