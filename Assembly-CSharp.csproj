@@ -53,6 +53,7 @@
      <Compile Include="Assets\2. Scripts\InGame\TextReplacer.cs" />
      <Compile Include="Assets\2. Scripts\Lobby\LobbyIconCtrl.cs" />
      <Compile Include="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" />
+     <None Include="Assets\1. Assets\TextFiles\Voters.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

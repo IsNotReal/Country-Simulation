@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Xml;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	[Header("Game Settings")]
 	public float AddTimeDelay = 1f;
-	public int MaxEventNum = 100;
 	public GameObject[] EventAreas;
 
 	[Header("View Settings")]
@@ -20,6 +20,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public float CameraZoomSpeed = 10f;
 
 	[Header("Prefab Settings")]
+	public TextAsset VotersXML;
 	public GameObject AlertForm;
 	public GameObject EventActive;
 
@@ -30,6 +31,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public int StartMonth = 1;
 	[HideInInspector]
 	public int StartYear = 2017;
+	public static bool TimeRunning = true;
 
 	[Header("UI Settings")]
 	public Canvas UiCanvas;
@@ -40,10 +42,13 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Sprite[] MultipleSprites;
 	public Slider RatingSlider;
 	public Text RatingText;
+	public Text HappinessText;
+	public Text UnhappinessText;
 	public Animator LeftUI;
 	public Animator GameExitUI;
 	public Animator ForegroundAnim;
 	public Animator UIAnim;
+	public Animator ConfigureUI;
 	public Image SelectedImage;
 	public Text SelectedText;
 	public Image ApprovalCircleGraph;
@@ -52,6 +57,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Text AllApprovalPercentText;
 	public Image ApprovalCheckApprovalCircleGraph;
 	public Text ApprovalCheckApprovalPercentText;
+	public Text ApprovalInvestNumText;
 	public Image[] PeopleRatingImages = new Image[9];
 	public Image[] MajestyRatingImages = new Image[9];
 	public Image[] DominionRatingImages = new Image[9];
@@ -66,56 +72,66 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	private static int TimeMonth;
 	private static int TimeYear;
 	private int TimeMultiple = 1;
-	private bool TimeRunning = true;
 
 	private float StartTouchDistance = -1;
 	private float StartViewSize;
 	private float CurrentViewSize = 1;
 
-	private List<EventCtrl> EventQueue;
+	private int SelectedApproval = 0;
+	private int Happiness = 0;
+	private int Unhappiness = 0;
 
-	private float[,] ApprovalRatings = new float[3, 9];
 	/* Set Approval Ratings Array values meaning ( Name of Sprite sources )
 	 * 0: Dominion { Culture, Defense, Develop, Diplomacy, Food, Fuel, Renewable, Road, Science }
 	 * 1: Majesty { Export, GDP, IMF, Import, Law, Religion, Safety, Tax, Welfare }
 	 * 2: People { Child, Education, Enterprise, Labor, Market, Medical, Nature, Pleasure, Social }
 	 */
-	private float this[int index1, int index2]{
-		get {
-			return ApprovalRatings[index1, index2];
-		}
-		set {
-			if (value < 0)
-				ApprovalRatings[index1, index2] = 0;
-			if (value > 100f)
-				ApprovalRatings[index1, index2] = 100f;
-		}
-	}
+
+	/* Set Approval Voters values meaning
+	* 0: Voters.유권자 ID1
+	* 1: Voters.체제 ID2
+	* 2: Voters.소득층 ID3
+	* 3: Voters.특수유권자 ID4
+	*/
+
+	private int[,] ApprovalPoints = new int[3, 9];
+	private float[,] Investments = new float[3, 9];
+	private float[,] AddedInvest = new float[3, 9];
+	private float[,] GoodApprovalRatings = new float[3, 9];
+	private float[,] BadApprovalRatings = new float[3, 9];
 
 	/* Variables */
 
-	void Start () {
-		if (MaxEventNum <= 0)
-			MaxEventNum = 1;
-		EventQueue = new List<EventCtrl>(MaxEventNum);
+
+	void InitializeValues() {
 		StartViewSize = Camera.main.orthographicSize;
 
 		StartDay = System.DateTime.Now.Day;
 		StartMonth = System.DateTime.Now.Month;
 		StartYear = System.DateTime.Now.Year;
 
-		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
-			for (int j = 0; j < ApprovalRatings.GetLength (1); j++)
-				ApprovalRatings [i, j] = 50f;
+		for (int i = 0; i < ApprovalPoints.GetLength (0); i++) {
+			for (int j = 0; j < ApprovalPoints.GetLength (1); j++)
+				ApprovalPoints [i, j] = (int)Random.Range (0, 5);
 		}
+	}
 
-		EventInitialize ();
+	/* Initializes */
+
+
+	void Awake () {
+		InitializeValues ();
+	}
+
+	void Start () {
 		GameStart ();
 	}
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (UIAnim.GetCurrentAnimatorStateInfo (0).IsName ("GameUIMoveAR"))
+			if (ConfigureUI.GetCurrentAnimatorStateInfo (0).IsName ("GameExitOn"))
+				ConfigureUI.SetTrigger ("Off");
+			else if (UIAnim.GetCurrentAnimatorStateInfo (0).IsName ("GameUIMoveAR"))
 				MoveApprovalRating (false);
 			else if (CurrentAnimPos != 0)
 				MoveUI (-CurrentAnimPos);
@@ -126,40 +142,215 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			TouchView ();
 	}
 
-	void GameRun () { // Active this when game time running
+	void DayRun () {
 		SetApprovalUI ();
+	}
+
+	void MonthRun () {
+
+	}
+
+	void YearRun () {
+
 	}
 
 	/* Event Functions */
 
-	void EventInitialize() {
-		for (int i = 0; i < MaxEventNum; i++) {
-			EventCtrl e = Instantiate (EventActive).GetComponent<EventCtrl> ();
-			int year = StartYear;
-			int month = StartMonth;
-			int day = Random.Range(1, PlayerSettings.GameLength * 365) + StartDay;
 
-			while (day > GetMaxDay (year, month)) {
-				day -= GetMaxDay (year, month);
-				if (month != 12)
-					month++;
-				else {
-					month = 1;
-					year++;
-				}
+	void ApplyInvest () {
+		for (int i = 0; i < AddedInvest.GetLength (0); i++) {
+			for (int j = 0; j < AddedInvest.GetLength (1); j++) {
+				if (AddedInvest [i, j] == 0)
+					continue;
+				else if (AddedInvest [i, j] > 0)
+					GoodApprovalRatings [i, j] += Mathf.Abs ((int)(AddedInvest [i, j] / GetVotersState (true, i, j)));
+				else
+					BadApprovalRatings [i, j] += Mathf.Abs ((int)(-AddedInvest [i, j] / GetVotersState (false, i, j)));
+				AddedInvest [i, j] = 0;
+				Debug.Log ("Good: " + GoodApprovalRatings [i, j] + ", Bad: " + BadApprovalRatings [i, j]);
 			}
-			e.ActiveYear = year;
-			e.ActiveMonth = month;
-			e.ActiveDay = day;
-			e.EventKind = i;
-
-			EventQueue.Add (e);
 		}
-		SortEventQueue ();
 
-		EventQueue [0].ActiveDay = StartDay + 1;
-		EventQueue [0].ActiveMonth = StartMonth;
-		EventQueue [0].ActiveYear = StartYear;
+	}
+
+	public void AddInvest (bool isAdd){
+		int i = UIAnim.GetInteger ("UINum") - 1;
+		switch (i) { // AnimInteger to ArrayIndex Convert
+		case 0:
+			i = 2;
+			break;
+		case 1:
+			i = 1;
+			break;
+		case 2:
+			i = 0;
+			break;
+		}
+
+		float addNum = 0;
+		if (Investments [i, SelectedApproval] < 10f)
+			addNum = 0.5f;
+		else if (Investments [i, SelectedApproval] < 100f)
+			addNum = 5f;
+		else
+			addNum = 50f;
+
+		if (!isAdd && Investments [i, SelectedApproval] <= 0) {
+			Investments [i, SelectedApproval] = 0;
+			return;
+		}
+
+		addNum *= isAdd ? 1 : -1;
+		Investments [i, SelectedApproval] = Investments [i, SelectedApproval] + addNum;
+		AddedInvest [i, SelectedApproval] += addNum;
+
+		SetGraphSelected (SelectedApproval);
+	}
+
+	public float GetVotersState(bool isGood, int array, int approval){
+		string arrname = "";
+		string apvname = "";
+		switch (array) {
+		case 0:
+			arrname = "Ter";
+			switch (approval) {
+			case 0:
+				apvname = "Cul";
+				break;
+			case 1:
+				apvname = "Def";
+				break;
+			case 2:
+				apvname = "Urb";
+				break;
+			case 3:
+				apvname = "Dip";
+				break;
+			case 4:
+				apvname = "Foo";
+				break;
+			case 5:
+				apvname = "Fos";
+				break;
+			case 6:
+				apvname = "Ren";
+				break;
+			case 7:
+				apvname = "Roa";
+				break;
+			case 8:
+				apvname = "Res";
+				break;
+			}
+			break;
+		case 1:
+			arrname = "Sov";
+			switch (approval) {
+			case 0:
+				apvname = "Exp";
+				break;
+			case 1:
+				apvname = "Gdp";
+				break;
+			case 2:
+				apvname = "Imf";
+				break;
+			case 3:
+				apvname = "Imp";
+				break;
+			case 4:
+				apvname = "Met";
+				break;
+			case 5:
+				apvname = "Rel";
+				break;
+			case 6:
+				apvname = "Saf";
+				break;
+			case 7:
+				apvname = "Tax";
+				break;
+			case 8:
+				apvname = "Wel";
+				break;
+			}
+			break;
+		case 2:
+			arrname = "Civil";
+			switch (approval) {
+			case 0:
+				apvname = "Chi";
+				break;
+			case 1:
+				apvname = "Edu";
+				break;
+			case 2:
+				apvname = "Ent";
+				break;
+			case 3:
+				apvname = "Lab";
+				break;
+			case 4:
+				apvname = "Mar";
+				break;
+			case 5:
+				apvname = "Med";
+				break;
+			case 6:
+				apvname = "Env";
+				break;
+			case 7:
+				apvname = "Ple";
+				break;
+			case 8:
+				apvname = "Soc";
+				break;
+			}
+			break;
+		}
+
+		if (arrname == "" || apvname == "") {
+			Debug.LogError ("Can't find XML Node");
+			return 0;
+		}
+
+		XmlDocument xml = new XmlDocument ();
+		xml.LoadXml (VotersXML.ToString());
+		XmlNode root = xml.DocumentElement;
+
+		float result = 0;
+		int num = 0;
+		for (int i = 0; i < root.ChildNodes.Count; i++) {
+			XmlNode id = root.ChildNodes.Item (i);
+			if (id.Name == "#comment")
+				continue;
+//			Debug.Log ("---- ["+id.Name + "] ----");
+			for (int j = 0; j < root.ChildNodes.Item (i).ChildNodes.Count; j++) {
+				XmlNode target = id.ChildNodes.Item (j);
+				if (target.Name == "#comment")
+					continue;
+//				Debug.Log (target.Name + ": " + target.SelectSingleNode (arrname).SelectSingleNode (apvname).SelectSingleNode (isGood ? "Inc" : "Dec").InnerText);
+				result += float.Parse (target.SelectSingleNode (arrname).SelectSingleNode (apvname).SelectSingleNode (isGood ? "Inc" : "Dec").InnerText);
+				num++;
+			}
+		}
+		result = result / num;
+//		Debug.Log ("평균 반응: " + result);
+		return result;
+	}
+
+	public void AddHappiness (bool isHappy) {
+		if (isHappy)
+			Happiness++;
+		else
+			Unhappiness++;
+		HappinessText.text = Happiness.ToString();
+		UnhappinessText.text = Unhappiness.ToString();
+	}
+
+	public void EventCreate (int kind = 0) {
+		EventCtrl obj = Instantiate (EventActive).GetComponent<EventCtrl> ();
+		obj.EventKind = kind;
 	}
 
 	public AlertFormCtrl Alert (string head, string info, int happy = 0, float appadd = 0f, float appsub = 0f) {
@@ -185,31 +376,100 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	public void RandomRating() {
-		for (int i = 0; i < ApprovalRatings.GetLength (0); i++) {
-			for (int j = 0; j < ApprovalRatings.GetLength (1); j++) {
-				ApprovalRatings [i, j] = Random.Range(0, 100f);
-			}
+		for (int i = 0; i < GoodApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < GoodApprovalRatings.GetLength (1); j++)
+				GoodApprovalRatings [i, j] += (int)Random.Range (0, 100f);
 		}
+		for (int i = 0; i < BadApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < BadApprovalRatings.GetLength (1); j++)
+				BadApprovalRatings [i, j] += (int)Random.Range (0, 100f);
+		}
+		SetApprovalUI ();
 	}
 
-	public void AddRating(int type, int index, float value = 0) {
-		ApprovalRatings [type, index] += value;
+	float AllApprovalPercent(float num = 1, bool isGood = true) {
+		float ga = 0;
+		float ba = 0;
+		for (int i = 0; i < GoodApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < GoodApprovalRatings.GetLength (1); j++)
+				ga += GoodApprovalRatings [i, j];
+		}
+		for (int i = 0; i < BadApprovalRatings.GetLength (0); i++) {
+			for (int j = 0; j < BadApprovalRatings.GetLength (1); j++)
+				ba += BadApprovalRatings [i, j];
+		}
+		if (ga + ba == 0)
+			return 0.5f * num;
+		return (isGood ? ga : ba) / (ga + ba) * num;
+	}
+
+	float AllApprovalPercent(int index1, int index2, float num = 1, bool isGood = true) {
+		if (GoodApprovalRatings [index1, index2] + BadApprovalRatings [index1, index2] == 0)
+			return 0.5f * num ;
+		return (isGood ? GoodApprovalRatings [index1, index2] : BadApprovalRatings [index1, index2]) / (GoodApprovalRatings [index1, index2] + BadApprovalRatings [index1, index2]) * num;
 	}
 
 	/* ↓ UI Functions ↓ */
 
-	void SetApprovalUI () {
-		float approval = 0;
-		for (int i = 0; i < ApprovalRatings.GetLength(0); i++) {
-			for (int j = 0; j < ApprovalRatings.GetLength (1); j++) {
-				approval += ApprovalRatings [i, j];
-			}
+
+	void TouchView () {
+		Vector3 CamPos = Camera.main.transform.position;
+		float mul = (MaxViewSize - CurrentViewSize) / MinViewSize;
+		CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
+		Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
+
+		// View Move
+		if (Input.touches.Length == 1) {
+			if (CurrentViewSize < MaxViewSize) {
+				CamPos.x = Mathf.Clamp (CamPos.x - Input.touches[0].deltaPosition.x * CameraMoveSpeed, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
+				CamPos.y = Mathf.Clamp (CamPos.y - Input.touches[0].deltaPosition.y * CameraMoveSpeed, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
+				CamPos.z = Camera.main.transform.position.z;
+				Camera.main.transform.position = CamPos;
+			} else 
+				Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
 		}
-		approval /= ApprovalRatings.GetLength (0) * ApprovalRatings.GetLength (1);
-		RatingSlider.value = approval;
-		RatingText.text = (int)RatingSlider.value + "%";
-		ApprovalCheckApprovalCircleGraph.fillAmount = approval / 100f;
-		ApprovalCheckApprovalPercentText.text = (int)approval + "%";
+
+		// View Zoom
+		if (Input.touches.Length == 2) {
+
+			for (int i = 0; i < EventAreas.Length; i++)
+				EventAreas [i].transform.localScale = Vector3.one * CurrentViewSize;
+
+			/* Code for Test
+			if (Input.GetAxis ("Mouse ScrollWheel") != 0) 
+				CurrentViewSize -= Input.GetAxis ("Mouse ScrollWheel") * CameraZoomSpeed;
+			*/
+
+			if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
+				if (StartTouchDistance < 0) {
+					StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+					return;
+				}
+				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
+				CurrentViewSize -= (currentDistance / StartTouchDistance - 1) * CameraZoomSpeed;
+
+				if (CurrentViewSize < MaxViewSize) {
+					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
+					CamPos.y = Mathf.Clamp (CamPos.y, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
+					CamPos.z = Camera.main.transform.position.z;
+					Camera.main.transform.position = CamPos;
+				} else 
+					Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
+
+			} else
+				StartTouchDistance = -1;
+		}
+	}
+
+	public void MoveConfigureUI () {
+		ConfigureUI.SetTrigger (ConfigureUI.GetCurrentAnimatorStateInfo (0).IsName ("GameExitOn") ? "Off" : "On");
+	}
+
+	void SetApprovalUI () {
+		RatingSlider.value = AllApprovalPercent (100);
+		RatingText.text = RatingSlider.value.ToString ("F0") + "%";
+		ApprovalCheckApprovalCircleGraph.fillAmount = AllApprovalPercent();
+		ApprovalCheckApprovalPercentText.text = AllApprovalPercent (100).ToString ("F0") + "%";
 	}
 
 	void SetMultipleImage(int multiple) {
@@ -233,55 +493,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		}
 	}
 
-	void TouchView () {
-		Vector3 CamPos = Camera.main.transform.position;
-		float mul = (MaxViewSize - CurrentViewSize) / MinViewSize;
-		CurrentViewSize = Mathf.Clamp (CurrentViewSize, MinViewSize, MaxViewSize);
-		Camera.main.orthographicSize = CurrentViewSize * StartViewSize;
-
-		// View Move
-		if (Input.touches.Length == 1) {
-			if (CurrentViewSize < MaxViewSize) {
-				CamPos.x = Mathf.Clamp (CamPos.x - Input.touches[0].deltaPosition.x * CameraMoveSpeed, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
-				CamPos.y = Mathf.Clamp (CamPos.y - Input.touches[0].deltaPosition.y * CameraMoveSpeed, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
-				CamPos.z = Camera.main.transform.position.z;
-				Camera.main.transform.position = CamPos;
-			} else 
-				Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
-		}
-
-		// View Zoom
-		if (Input.touches.Length == 2) {
-			
-			for (int i = 0; i < EventAreas.Length; i++)
-				EventAreas [i].transform.localScale = Vector3.one * CurrentViewSize;
-			
-			/* Code for Test
-			if (Input.GetAxis ("Mouse ScrollWheel") != 0) 
-				CurrentViewSize -= Input.GetAxis ("Mouse ScrollWheel") * CameraZoomSpeed;
-			*/
-
-			if (Input.touches [0].phase == TouchPhase.Moved && Input.touches [1].phase == TouchPhase.Moved) {
-				if (StartTouchDistance < 0) {
-					StartTouchDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-					return;
-				}
-				float currentDistance = Vector2.Distance (Input.touches [0].position, Input.touches [1].position);
-				CurrentViewSize -= (currentDistance / StartTouchDistance - 1) * CameraZoomSpeed;
-
-				if (CurrentViewSize < MaxViewSize) {
-					CamPos.x = Mathf.Clamp (CamPos.x, MaxViewPosition.x * -mul, MaxViewPosition.x * mul);
-					CamPos.y = Mathf.Clamp (CamPos.y, MaxViewPosition.y * -mul, MaxViewPosition.y * mul);
-					CamPos.z = Camera.main.transform.position.z;
-					Camera.main.transform.position = CamPos;
-				} else 
-					Camera.main.transform.position = Vector3.forward * Camera.main.transform.position.z;
-				
-			} else
-				StartTouchDistance = -1;
-		}
-	}
-
 	public void SetSelected () {
 		GameObject obj = EventSystem.current.currentSelectedGameObject;
 		SelectedImage.sprite = obj.GetComponentsInChildren<Image> ()[1].sprite;
@@ -290,7 +501,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	public void SetGraphSelected (int selected) {
 		int i = UIAnim.GetInteger ("UINum") - 1;
-
 		switch (i) { // AnimInteger to ArrayIndex Convert
 		case 0:
 			i = 2;
@@ -302,11 +512,13 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			i = 0;
 			break;
 		}
-
-		ApprovalCircleGraph.fillAmount = ApprovalRatings [i, selected] / 100f;
-		ApprovalAgreePercentText.text = ((int)ApprovalRatings [i, selected]).ToString() + "%";
-		ApprovalDisagreePercentText.text = ((int)(100f - ApprovalRatings [i, selected])).ToString() + "%";
-		AllApprovalPercentText.text = ApprovalRatings [i, selected] / (ApprovalRatings.GetLength (0) * ApprovalRatings.GetLength (1)) + "%";
+			
+		ApprovalCircleGraph.fillAmount = AllApprovalPercent (i, selected);
+		ApprovalAgreePercentText.text = AllApprovalPercent (i, selected, 100).ToString ("F0") + "%";
+		ApprovalDisagreePercentText.text = AllApprovalPercent (i, selected, 100, false).ToString ("F0") + "%";
+		AllApprovalPercentText.text = AllApprovalPercent (i, selected, 100).ToString ("F2") + "%";
+		ApprovalInvestNumText.text = "$" + Investments [i, selected].ToString ("F2") + "G";
+		SelectedApproval = selected;
 	}
 
 	public void MoveLeftUI () {
@@ -359,13 +571,17 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			TimeStop (true);
 			break;
 		case 2:
+		case -3:
+			if (num == -3)
+				ApplyInvest ();
+			
 			int j = UIAnim.GetInteger ("UINum") - 1;
 			if (j == 0) {
 				for (int i = 0; i < PeopleRatingImages.Length; i++) {
 					Color color = NormalColor;
-					if (ApprovalRatings [2, i] < NormalColorRange.x)
+					if (AllApprovalPercent (2, i, 100) < NormalColorRange.x)
 						color = BadColor;
-					else if (ApprovalRatings [2, i] > NormalColorRange.y)
+					else if (AllApprovalPercent (2, i, 100) > NormalColorRange.y)
 						color = GoodColor;
 					PeopleRatingImages [i].color = color;
 				}
@@ -373,9 +589,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			if (j == 1) {
 				for (int i = 0; i < MajestyRatingImages.Length; i++) {
 					Color color = NormalColor;
-					if (ApprovalRatings [1, i] < NormalColorRange.x)
+					if (AllApprovalPercent (1, i, 100) < NormalColorRange.x)
 						color = BadColor;
-					else if (ApprovalRatings [1, i] > NormalColorRange.y)
+					else if (AllApprovalPercent (1, i, 100) > NormalColorRange.y)
 						color = GoodColor;
 					MajestyRatingImages [i].color = color;
 				}
@@ -383,9 +599,9 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			if (j == 1) {
 				for (int i = 0; i < DominionRatingImages.Length; i++) {
 					Color color = NormalColor;
-					if (ApprovalRatings [0, i] < NormalColorRange.x)
+					if (AllApprovalPercent (0, i, 100) < NormalColorRange.x)
 						color = BadColor;
-					else if (ApprovalRatings [0, i] > NormalColorRange.y)
+					else if (AllApprovalPercent (0, i, 100) > NormalColorRange.y)
 						color = GoodColor;
 					DominionRatingImages [i].color = color;
 				}
@@ -412,6 +628,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	}
 
 	/* ↓ Run Functions ↓ */
+
 
 	void GameStart () {
 		TimeDay = StartDay;
@@ -442,14 +659,10 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			if (TimeMonth == 12) {
 				TimeMonth = 1;
 				TimeYear++;
+				YearRun ();
 			} else
 				TimeMonth++;
-		}
-
-		while (EventQueue.Count > 0 && TimeCheck (EventQueue [0].ActiveDay, EventQueue [0].ActiveMonth, EventQueue [0].ActiveYear, false)) {
-			EventQueue [0].enabled = true;
-			EventQueue.RemoveAt (0);
-			SortEventQueue ();
+			MonthRun ();
 		}
 
 		if (StartYear + PlayerSettings.GameLength <= TimeYear && StartMonth <= TimeMonth && StartDay <= TimeDay) {
@@ -458,7 +671,7 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			yield break;
 		}
 
-		GameRun ();
+		DayRun ();
 		StartCoroutine (RunTime ());
 	}
 
@@ -472,36 +685,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		TimeRunning = !time;
 		TimeText.color = TimeRunning ? TimeRunColor : TimeStopColor;
 		SetMultipleImage (TimeRunning ? TimeMultiple : 0);
-	}
-
-	void SortEventQueue() {
-		for (int loop = 0; loop < EventQueue.Count - 1; loop++) {
-			for (int i = 0; i < EventQueue.Count - 1 - loop; i++) {
-				if (EventQueue [i].ActiveYear > EventQueue [i + 1].ActiveYear) {
-					EventCtrl temp = EventQueue [i];
-					EventQueue [i] = EventQueue [i + 1];
-					EventQueue [i + 1] = temp;
-				}
-			}
-		}
-		for (int loop = 0; loop < EventQueue.Count - 1; loop++) {
-			for (int i = 0; i < EventQueue.Count - 1 - loop; i++) {
-				if (EventQueue [i].ActiveYear == EventQueue [i + 1].ActiveYear && EventQueue [i].ActiveMonth > EventQueue [i + 1].ActiveMonth) {
-					EventCtrl temp = EventQueue [i];
-					EventQueue [i] = EventQueue [i + 1];
-					EventQueue [i + 1] = temp;
-				}
-			}
-		}
-		for (int loop = 0; loop < EventQueue.Count - 1; loop++) {
-			for (int i = 0; i < EventQueue.Count - 1 - loop; i++) {
-				if (EventQueue [i].ActiveYear == EventQueue [i + 1].ActiveYear && EventQueue [i].ActiveMonth == EventQueue [i + 1].ActiveMonth && EventQueue [i].ActiveDay > EventQueue [i + 1].ActiveDay) {
-					EventCtrl temp = EventQueue [i];
-					EventQueue [i] = EventQueue [i + 1];
-					EventQueue [i + 1] = temp;
-				}
-			}
-		}
 	}
 
 	public static bool TimeCheck (int Day, int Month, int Year, bool isExact = true) {

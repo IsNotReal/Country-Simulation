@@ -1,0 +1,2826 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Person>
+
+<ID1> <!-- Person in ID1 category -->
+
+<!-- 1 person have 3 type : Civil 국민/ Sov 주권/ Ter 영토-->
+
+<GongSan> <!-- ///////////////////////// Person Type 1 공산주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease-->
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-3</Inc>
+            <Dec>3</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>3</Inc>
+                 <Dec>-2</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>2</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-3</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-3</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>-2</Dec>
+        </Dip>
+
+    </Ter>
+
+</GongSan>
+
+
+<JaBon> <!-- ///////////////////////// Person Type 2 자본주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease-->
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-3</Inc>
+                 <Dec>3</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>-3</Inc>
+                 <Dec>3</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-3</Inc>
+                 <Dec>3</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>-2</Inc>
+                 <Dec>2</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>0</Inc>
+                 <Dec>-2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>-2</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</JaBon>
+
+<JinBo> <!-- ///////////////////////// Person Type 3 진보주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>3</Inc><!--Increase -->
+            <Dec>-3</Dec><!--Decrease-->
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>0</Inc>
+            <Dec>-2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-3</Inc>
+                 <Dec>3</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>3</Inc>
+                 <Dec>0</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>-3</Inc>
+                 <Dec>3</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-3</Inc>
+                 <Dec>2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Dip>
+
+    </Ter>
+
+</JinBo>
+
+
+<BoSu> <!-- ///////////////////////// Person Type 4 보수주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>2</Inc><!--Increase -->
+            <Dec>-2</Dec><!--Decrease-->  <!--Last Fix  : 여기까지 하다 맘-->
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>-2</Inc>
+            <Dec>1</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>-2</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>2</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>-3</Inc>
+                 <Dec>2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-2</Inc>
+                 <Dec>-2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>-2</Inc>
+                 <Dec>2</Dec>
+        </Dip>
+
+    </Ter>
+
+</BoSu>
+
+
+<Gain> <!-- ///////////////////////// Person Type 5 개인주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>-3</Inc><!--Increase -->
+            <Dec>-2</Dec><!--Decrease-->  
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-2</Inc>
+            <Dec>-2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>-2</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-3</Inc>
+                 <Dec>2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-3</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>-3</Inc>
+                 <Dec>2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>-3</Inc>
+                 <Dec>3</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>-3</Inc>
+                 <Dec>0</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>-2</Inc>
+                 <Dec>-2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>-2</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>-2</Inc>
+                 <Dec>-2</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</Gain>
+
+<SaHoi> <!-- ///////////////////////// Person Type 6 사회주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>3</Inc><!--Increase -->
+            <Dec>-3</Dec><!--Decrease-->  
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-2</Inc>
+                 <Dec>2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Dip>
+
+    </Ter>
+
+</SaHoi>
+
+<Hwan> <!-- ///////////////////////// Person Type 7 환경주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>-3</Inc>
+                 <Dec>3</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>-3</Inc>
+                 <Dec>3</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>-3</Inc>
+                 <Dec>3</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-3</Inc>
+                 <Dec>3</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>-3</Inc>
+                 <Dec>2</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</Hwan>
+
+
+<HoiHwan> <!-- ///////////////////////// Person Type 8 회의적환경주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease-->
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>-3</Inc>
+            <Dec>3</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</HoiHwan>
+
+<JaYoung> <!-- ///////////////////////// Person Type 8 자영업자-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>-3</Inc>
+            <Dec>3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>-3</Inc>
+                 <Dec>3</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-3</Inc>
+                 <Dec>2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>-2</Inc>
+                 <Dec>2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>-2</Dec>
+        </Dip>
+
+    </Ter>
+
+</JaYoung>
+
+
+<NoDong> <!-- ///////////////////////// Person Type 9 노동자-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>2</Inc><!--Increase -->
+            <Dec>-2</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-3</Inc>
+            <Dec>3</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-3</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>0</Inc>
+                 <Dec>-2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</NoDong>
+
+<Cheong> <!-- ///////////////////////// Person Type 10 청년층-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>3</Inc><!--Increase -->
+            <Dec>-3</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>3</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>3</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>-2</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>0</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-3</Inc>
+                 <Dec>2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>3</Inc>
+                 <Dec>-3</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>-2</Dec>
+        </Dip>
+
+    </Ter>
+
+</Cheong>
+
+
+<NoNyeon> <!-- ///////////////////////// Person Type 11 노년층-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>-3</Inc>
+            <Dec>3</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>-3</Inc>
+            <Dec>2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>3</Inc>
+            <Dec>-3</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>-3</Inc>
+                 <Dec>3</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>3</Inc>
+                 <Dec>-3</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-3</Inc>
+                 <Dec>2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>-2</Inc>
+                 <Dec>2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>3</Inc>
+                 <Dec>-2</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>-2</Dec>
+        </Dip>
+
+    </Ter>
+
+</NoNyeon>
+
+
+
+
+</ID1>
+
+<ID2>
+    
+    <MinJoo> <!-- ///////////////////////// System Type 1 민주주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>1</Inc><!--Increase -->
+            <Dec>-1</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>1</Inc>
+            <Dec>-2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>-1</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>-1</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>2</Inc>
+            <Dec>-1</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>2</Inc>
+                 <Dec>-1</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>-1</Inc>
+                 <Dec>2</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>0</Inc>
+                 <Dec>1</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Dip>
+
+    </Ter>
+
+</MinJoo>
+    
+    <JeonChe> <!-- ///////////////////////// System type 2 전체주의-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>2</Inc>
+            <Dec>-1</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>-1</Inc>
+                 <Dec>1</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>-1</Inc>
+                 <Dec>1</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>-1</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>-1</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Dip>
+
+    </Ter>
+
+</JeonChe>
+
+<Fascism> <!-- ///////////////////////// System Type 3 파시즘-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>-2</Inc><!--Increase -->
+            <Dec>2</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-2</Inc>
+            <Dec>-1</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>-1</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>-2</Inc>
+                 <Dec>1</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>-1</Inc>
+                 <Dec>1</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>1</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>-2</Inc>
+                 <Dec>1</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>-2</Inc>
+                 <Dec>2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>-1</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>-2</Inc>
+                 <Dec>1</Dec>
+        </Dip>
+
+    </Ter>
+
+</Fascism>
+
+</ID2>
+
+
+<ID3>
+    
+    <Low> <!-- ///////////////////////// Income Type 1 저소득층 LowIncome-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>1</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>1</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>-1</Inc>
+                 <Dec>-1</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>-1</Inc>
+                 <Dec>1</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>-1</Inc>
+                 <Dec>-1</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</Low>
+    
+    <Middle> <!-- ///////////////////////// Income Type 2 중산층 Middle-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>2</Inc><!--Increase -->
+            <Dec>-1</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>-2</Inc>
+            <Dec>1</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>1</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>1</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-1</Inc>
+                 <Dec>-1</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>1</Inc>
+                 <Dec>-1</Dec>
+        </Dip>
+
+    </Ter>
+
+</Middle>
+    
+    <Affluent> <!-- ///////////////////////// Income Type 3 부유층 Affluent-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>-2</Inc><!--Increase -->
+            <Dec>1</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>1</Inc>
+            <Dec>-2</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>-2</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>1</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>1</Inc>
+                 <Dec>1</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>-1</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>-2</Inc>
+                 <Dec>1</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>1</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+   
+    </Ter>
+
+</Affluent>
+
+</ID3>
+
+<ID4>
+    
+    <Minority> <!-- ///////////////////////// Special type 1 소수민족 Minority-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>-1</Inc>
+            <Dec>1</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>2</Inc>
+            <Dec>-1</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>1</Inc>
+                 <Dec>0</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-1</Inc>
+                 <Dec>2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>1</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>-2</Inc>
+                 <Dec>0</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>1</Inc>
+                 <Dec>-2</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</Minority>
+    
+     <Parents> <!-- ///////////////////////// Special type 2 부모 Parents-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>2</Inc><!--Increase -->
+            <Dec>-2</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>2</Inc>
+            <Dec>-2</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>2</Inc>
+            <Dec>-1</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>1</Inc>
+                 <Dec>-1</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>1</Inc>
+                 <Dec>-2</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>-2</Inc>
+                 <Dec>1</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>-1</Inc>
+                 <Dec>1</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>-2</Inc>
+                 <Dec>2</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>-1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>-1</Inc>
+                 <Dec>1</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>-1</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>-2</Inc>
+                 <Dec>0</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>2</Inc>
+                 <Dec>-2</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>-2</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>1</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</Parents>
+    
+     <Patriot> <!-- ///////////////////////// Special type 3 애국 Patriot-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>1</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>1</Inc>
+            <Dec>-1</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>2</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>2</Inc>
+                 <Dec>0</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>1</Inc>
+                 <Dec>0</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>1</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>2</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>1</Inc>
+                 <Dec>0</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>2</Inc>
+                 <Dec>-2</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>1</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>1</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>2</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>1</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>1</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>2</Inc>
+                 <Dec>-1</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>1</Inc>
+                 <Dec>-2</Dec>
+        </Dip>
+
+    </Ter>
+
+</Patriot>
+
+ <Reli> <!-- ///////////////////////// Special type 4 종교인 Religionist-->
+
+    <Civil> 
+
+        <Edu>
+            <Inc>0</Inc><!--Increase -->
+            <Dec>0</Dec><!--Decrease--> 
+        </Edu>
+        <Ent> <!-- Enterprise : 기업 -->
+            <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Ent>
+        <Lab> <!-- Labor : 노동 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Lab>
+         <Soc> <!-- Social : 사회 -->
+             <Inc>1</Inc>
+            <Dec>0</Dec>
+        </Soc>
+    <Mar> <!-- Market : 시장 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Mar>
+         <Ple> <!-- Pleasure : 유흥 -->
+             <Inc>-2</Inc>
+            <Dec>2</Dec>
+        </Ple>
+        <Med> <!--Medical : 의료 -->
+             <Inc>-1</Inc>
+            <Dec>0</Dec>
+        </Med>
+        <Chi> <!--Child birth : 출산율 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Chi>
+        <Env> <!-- Environment : 환경 -->
+             <Inc>0</Inc>
+            <Dec>0</Dec>
+        </Env>
+
+    </Civil>
+
+    <Sov><!--sovereignty : 주권 -->
+
+            <Met><!--Method : 법 -->
+                <Inc>-2</Inc>
+                 <Dec>0</Dec>
+              </Met>
+            <Wel><!--Welfare : 복지 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Wel>
+            <Imp><!--Import : 수입 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imp>
+            <Exp><!--Export : 수출 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Exp>
+            <Tax><!--Tax : 세금 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Tax>
+            <Rel><!--Religion : 종교 -->
+                <Inc>5</Inc>
+                 <Dec>-3</Dec>
+              </Rel>
+                <Saf><!--Safety : 치안 -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Saf>
+                <Imf><!--IMF : IMF -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Imf>
+                <Gdp><!--GDP : GDP -->
+                <Inc>0</Inc>
+                 <Dec>0</Dec>
+              </Gdp>
+
+    </Sov>
+
+    <Ter><!--territory : 영토 -->
+
+        <Def><!--Defense : 국방 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Def>
+           <Roa><!--Road : 도로 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Roa>
+        <Urb><!--Urban Development : 도시개발 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Urb>
+        <Cul><!--Culture : 문화 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Cul>
+        <Foo><!--Food : 식량 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Foo>
+        <Ren><!--Renewable Energy : 신재생 에너지 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Ren>
+        <Fos><!--Fossil : 화석 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Fos>
+        <Res><!--Research : 연구 -->
+            <Inc>-2</Inc>
+                 <Dec>0</Dec>
+        </Res>
+        <Dip><!--diplomacy : 외교 -->
+            <Inc>0</Inc>
+                 <Dec>0</Dec>
+        </Dip>
+
+    </Ter>
+
+</Reli>
+
+</ID4>
+</Person>
