@@ -1,17 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\2. Scripts\InGame\GameSystemCtrl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="645" Column="42" />
-      <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="127" Column="3" />
-      <File FileName="Assets\2. Scripts\InGame\PlayerSettings.cs" Line="18" Column="1" />
-=======
-      <File FileName="Assets\2. Scripts\InGame\GameSystemCtrl.cs" Line="701" Column="73" />
-      <File FileName="Assets\2. Scripts\InGame\EventCtrl.cs" Line="1" Column="1" />
-      <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="1" Column="1" />
->>>>>>> origin/master
+      <File FileName="Assets\2. Scripts\Lobby\LobbyMenuCtrl.cs" Line="113" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
