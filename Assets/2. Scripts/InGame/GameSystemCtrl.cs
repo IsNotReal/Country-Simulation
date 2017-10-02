@@ -65,17 +65,26 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 	public Color BadColor = new Color (253f / 255f, 69f / 255f, 53f / 255f, 1f);
 	public Color NormalColor = new Color (67f / 255f, 67f / 255f, 67f / 255f, 1f);
 	public Vector2 NormalColorRange = new Vector2 (40f, 60f);
+	public Sprite MusicOnSprite;
+	public Sprite MusicOffSprite;
+	public Sprite AudioOnSprite;
+	public Sprite AudioOffSprite;
+	public Image MusicImage;
+	public Image AudioImage;
+
+	private float prevMusicSound = 1;
+	private float prevAudioSound = 1;
 
 	private int CurrentAnimPos = 0;
+
+	private float StartTouchDistance = -1;
+	private float StartViewSize;
+	private float CurrentViewSize = 1;
 
 	private static int TimeDay;
 	private static int TimeMonth;
 	private static int TimeYear;
 	private int TimeMultiple = 1;
-
-	private float StartTouchDistance = -1;
-	private float StartViewSize;
-	private float CurrentViewSize = 1;
 
 	private int SelectedApproval = 0;
 	private int Happiness = 0;
@@ -625,6 +634,50 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		ForegroundAnim.ResetTrigger ("Show");
 		ForegroundAnim.ResetTrigger ("Hide");
 		ForegroundAnim.SetTrigger (isOn ? "Show" : "Hide");
+	}
+
+	public void MusicSlider (Slider slider) {
+		if (slider.value <= 0f)
+			MusicImage.sprite = MusicOffSprite;
+		else
+			MusicImage.sprite = MusicOnSprite;
+		MusicImage.SetNativeSize ();
+		MusicImage.rectTransform.sizeDelta /= 8;
+		PlayerSettings.MusicSound = slider.value;
+	}
+
+	public void MusicButton (Slider slider) {
+		if (slider.value > 0) {
+			prevMusicSound = slider.value;
+			slider.value = 0;
+		} else {
+			float value = slider.value;
+			slider.value = prevMusicSound;
+			prevMusicSound = value;
+		}
+		PlayerSettings.MusicSound = slider.value;
+	}
+
+	public void AudioSlider (Slider slider) {
+		if (slider.value <= 0f)
+			AudioImage.sprite = AudioOffSprite;
+		else
+			AudioImage.sprite = AudioOnSprite;
+		AudioImage.SetNativeSize ();
+		AudioImage.rectTransform.sizeDelta /= 8;
+		PlayerSettings.AudioSound = slider.value;
+	}
+
+	public void AudioButton (Slider slider) {
+		if (slider.value > 0) {
+			prevAudioSound = slider.value;
+			slider.value = 0;
+		} else {
+			float value = slider.value;
+			slider.value = prevAudioSound;
+			prevAudioSound = value;
+		}
+		PlayerSettings.AudioSound = slider.value;
 	}
 
 	/* ↓ Run Functions ↓ */

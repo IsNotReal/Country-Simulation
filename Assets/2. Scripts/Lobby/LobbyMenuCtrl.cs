@@ -21,9 +21,18 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	public Toggle[] TeamNumberToggle;
 	public Toggle[] GameLengthToggle;
 	public Slider GameDifficultSlider;
+	public Image MusicImage;
+	public Sprite MusicOn;
+	public Sprite MusicOff;
+	public Image AudioImage;
+	public Sprite AudioOn;
+	public Sprite AudioOff;
 
 	private int CurrentPage = 0;
 	private Animator thisAnim;
+
+	private float prevMusicSound = 1f;
+	private float prevAudioSound = 1f;
 
 	void Start () {
 		thisAnim = gameObject.GetComponent<Animator> ();
@@ -115,5 +124,49 @@ public class LobbyMenuCtrl : MonoBehaviour {
 
 	public void AppQuit() {
 		Application.Quit ();
+	}
+
+	public void MusicSlider (Slider slider) {
+		if (slider.value <= 0f)
+			MusicImage.sprite = MusicOff;
+		else
+			MusicImage.sprite = MusicOn;
+		MusicImage.SetNativeSize ();
+		MusicImage.rectTransform.sizeDelta /= 10;
+		PlayerSettings.MusicSound = slider.value;
+	}
+
+	public void MusicButton (Slider slider) {
+		if (slider.value > 0) {
+			prevMusicSound = slider.value;
+			slider.value = 0;
+		} else {
+			float value = slider.value;
+			slider.value = prevMusicSound;
+			prevMusicSound = value;
+		}
+		PlayerSettings.MusicSound = slider.value;
+	}
+
+	public void AudioSlider (Slider slider) {
+		if (slider.value <= 0f)
+			AudioImage.sprite = AudioOff;
+		else
+			AudioImage.sprite = AudioOn;
+		AudioImage.SetNativeSize ();
+		AudioImage.rectTransform.sizeDelta /= 10;
+		PlayerSettings.AudioSound = slider.value;
+	}
+
+	public void AudioButton (Slider slider) {
+		if (slider.value > 0) {
+			prevAudioSound = slider.value;
+			slider.value = 0;
+		} else {
+			float value = slider.value;
+			slider.value = prevAudioSound;
+			prevAudioSound = value;
+		}
+		PlayerSettings.AudioSound = slider.value;
 	}
 }
