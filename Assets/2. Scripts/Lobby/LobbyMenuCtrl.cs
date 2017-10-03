@@ -27,7 +27,8 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	public Image AudioImage;
 	public Sprite AudioOn;
 	public Sprite AudioOff;
-	public Animator NameAlert;
+	public Animator PlayerNameAlert;
+	public Animator TeamNameAlert;
 
 	private int CurrentPage = 0;
 	private Animator thisAnim;
@@ -105,12 +106,18 @@ public class LobbyMenuCtrl : MonoBehaviour {
 		CurrentPage = page - 1;
 	}
 
+	public void InputText (Animator thisAnim) {
+		thisAnim.SetTrigger ("Off");
+	}
+
 	void MoveScene() {
 		if (PlayerNameText.text == "" || TeamNameText.text == "") {
-			if (NameAlert.transform.localScale == Vector3.zero) {
-				NameAlert.SetTrigger ("On");
-				StartCoroutine (AlertOff (3f));
-			}
+			PlayerNameAlert.ResetTrigger ("Off");
+			TeamNameAlert.ResetTrigger ("Off");
+			if (PlayerNameText.text == "")
+				PlayerNameAlert.SetTrigger ("On");
+			if (TeamNameText.text == "")
+				TeamNameAlert.SetTrigger ("On");
 			return;
 		}
 		PlayerSettings.PlayerName = PlayerNameText.text;
@@ -122,11 +129,6 @@ public class LobbyMenuCtrl : MonoBehaviour {
 		PlayerSettings.GameDifficulty = (int)GameDifficultSlider.value;
 
 		SceneManager.LoadScene (GameSceneName);
-	}
-
-	IEnumerator AlertOff(float time){
-		yield return new WaitForSeconds (time);
-		NameAlert.SetTrigger ("Off");
 	}
 
 	public void GameExitAnim() {
