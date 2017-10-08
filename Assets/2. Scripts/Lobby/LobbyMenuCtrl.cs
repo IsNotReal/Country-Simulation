@@ -29,12 +29,17 @@ public class LobbyMenuCtrl : MonoBehaviour {
 	public Sprite AudioOff;
 	public Animator PlayerNameAlert;
 	public Animator TeamNameAlert;
+	public Button CountrySelectButton;
+	public GameObject CountryInfoTextbox;
+	public Text CantPlayText;
 
 	private int CurrentPage = 0;
 	private Animator thisAnim;
 
 	private float prevMusicSound = 1f;
 	private float prevAudioSound = 1f;
+
+	private string SelectedCountry = "Skorea";
 
 	void Start () {
 		thisAnim = gameObject.GetComponent<Animator> ();
@@ -181,5 +186,28 @@ public class LobbyMenuCtrl : MonoBehaviour {
 			prevAudioSound = value;
 		}
 		PlayerSettings.AudioSound = slider.value;
+	}
+
+	public void CountrySelect (string country) {
+		SelectedCountry = country;
+	}
+
+	public void CountrySelect (bool isOn) {
+		if (!isOn)
+			return;
+		CountrySelectButton.gameObject.SetActive (true);
+		CountryInfoTextbox.SetActive (true);
+		CantPlayText.gameObject.SetActive (false);
+
+		switch (SelectedCountry) {
+		case "Skorea":
+			break;
+		default:
+			CountrySelectButton.gameObject.SetActive (false);
+			CountryInfoTextbox.SetActive (false);
+			CantPlayText.gameObject.SetActive (true);
+			break;
+		}
+
 	}
 }
