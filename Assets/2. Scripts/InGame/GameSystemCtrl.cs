@@ -543,16 +543,22 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		if (UIAnim.GetCurrentAnimatorStateInfo (0).IsName ("GameUIMoveAR") && isOn)
 			return;
 		UIAnim.SetBool ("MoveAR", isOn);
-		UIAnim.SetTrigger ("Start");
+		UIAnim.SetTrigger ("StartAR");
 		ForegroundAnim.ResetTrigger ("Show");
-		ForegroundToggle (isOn);
-		TimeStop (isOn);
-		LeftUI.SetTrigger (isOn ? "Destroy" : "Create");
-		if (isOn) {
-			UIAnim.SetInteger ("UINum", 0);
-			UIAnim.SetInteger ("Move", 0);
-			CurrentAnimPos = 0;
-		}
+
+		bool isTimeStop = isOn || !(UIAnim.GetInteger ("Move") == 0 || UIAnim.GetInteger ("Move") == -1);
+		ForegroundToggle (isTimeStop);
+		TimeStop (isTimeStop);
+		LeftUI.SetTrigger (isTimeStop ? "Destroy" : "Create");
+		if (!isOn && isTimeStop)
+			StartCoroutine (MoveUIBack (UIAnim.GetCurrentAnimatorClipInfo (0) [0].clip.length));
+	}
+
+	IEnumerator MoveUIBack(float time) {
+		yield return new WaitForSeconds (time);
+		int move = UIAnim.GetInteger ("Move") < 0 ? Mathf.Abs (UIAnim.GetInteger ("Move")) - 1 : UIAnim.GetInteger ("Move");
+		UIAnim.SetInteger ("Move", move);
+		UIAnim.SetTrigger ("Start");
 	}
 
 	public void GotoMainMenu () {
