@@ -111,7 +111,6 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 
 	/* Variables */
 
-
 	void InitializeValues() {
 		StartViewSize = Camera.main.orthographicSize;
 
@@ -176,13 +175,13 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 				else
 					BadApprovalRatings [i, j] += Mathf.Abs ((int)(-AddedInvest [i, j] / GetVotersState (false, i, j)));
 				AddedInvest [i, j] = 0;
-				Debug.Log ("Good: " + GoodApprovalRatings [i, j] + ", Bad: " + BadApprovalRatings [i, j]);
+//				Debug.Log ("Good: " + GoodApprovalRatings [i, j] + ", Bad: " + BadApprovalRatings [i, j]);
 			}
 		}
 
 	}
 
-	public void AddInvest (bool isAdd){
+	public void AddInvest (float addNum){
 		int i = UIAnim.GetInteger ("UINum") - 1;
 		switch (i) { // AnimInteger to ArrayIndex Convert
 		case 0:
@@ -196,24 +195,72 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 			break;
 		}
 
-		float addNum = 0;
-		if (Investments [i, SelectedApproval] < 10f)
-			addNum = 0.5f;
-		else if (Investments [i, SelectedApproval] < 100f)
-			addNum = 5f;
-		else
-			addNum = 50f;
+		int unitnum, addunitnum;
+		GetSI (Investments [i, SelectedApproval], out unitnum);
+		GetSI (Investments [i, SelectedApproval] + addNum, out addunitnum);
+		addNum = unitnum > 0 ? addNum * Mathf.Pow (10, unitnum*3) : addNum;
+//		Debug.Log (unitnum + ": " + (Investments [i, SelectedApproval]) + ", " + addunitnum + ": " + (Investments [i, SelectedApproval]+addNum));
+//		if (unitnum > 0 && Investments [i, SelectedApproval] + addNum <= 0) {
+//			addNum = -Investments [i, SelectedApproval] + 1;
+//			Debug.Log (Investments [i, SelectedApproval] + ", " + addNum);
+//		}
+//		else if (Investments [i, SelectedApproval] + addNum <= 0)
+//			addNum = -Investments [i, SelectedApproval];
 
-		if (!isAdd && Investments [i, SelectedApproval] <= 0) {
-			Investments [i, SelectedApproval] = 0;
-			return;
-		}
+		if (Investments [i, SelectedApproval] + addNum <= 0)
+			addNum = -Investments [i, SelectedApproval];
+//		if (Input.GetKey (KeyCode.Alpha1))
+//			addNum *= Mathf.Pow (10, (unitnum+1) * 3);
 
-		addNum *= isAdd ? 1 : -1;
-		Investments [i, SelectedApproval] = Investments [i, SelectedApproval] + addNum;
+		Investments [i, SelectedApproval] += addNum;
 		AddedInvest [i, SelectedApproval] += addNum;
+		ApprovalInvestNumText.text = "$" + GetSI(Investments [i, SelectedApproval], out unitnum);
 
-		SetGraphSelected (SelectedApproval);
+	}
+
+	string GetSI(float num, out int numunit){
+		numunit = (int)(Mathf.Log10 (num * 10) / 3);
+		if (numunit <= 0 || num == 0) {
+			numunit = 0;
+			return num.ToString ("F2");
+		}
+		num /= Mathf.Pow (10, numunit * 3);
+		string strunit = "";
+		switch (numunit) {
+		case 0:
+			strunit = "";
+			break;
+		case 1:
+			strunit = "k";
+			break;
+		case 2:
+			strunit = "M";
+			break;
+		case 3:
+			strunit = "G";
+			break;
+		case 4:
+			strunit = "T";
+			break;
+		case 5:
+			strunit = "P";
+			break;
+		case 6:
+			strunit = "E";
+			break;
+		case 7:
+			strunit = "Z";
+			break;
+		case 8:
+			strunit = "Y";
+			break;
+		default:
+			strunit = "";
+			break;
+		}
+		if (numunit > 8)
+			strunit = "Y";
+		return num.ToString("F2") + strunit;
 	}
 
 	public float GetVotersState(bool isGood, int array, int approval){
@@ -526,7 +573,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		ApprovalAgreePercentText.text = AllApprovalPercent (i, selected, 100).ToString ("F0") + "%";
 		ApprovalDisagreePercentText.text = AllApprovalPercent (i, selected, 100, false).ToString ("F0") + "%";
 		AllApprovalPercentText.text = AllApprovalPercent (i, selected, 100).ToString ("F2") + "%";
-		ApprovalInvestNumText.text = "$" + Investments [i, selected].ToString ("F2") + "G";
+		int sinum;
+		ApprovalInvestNumText.text = "$" + GetSI(Investments [i, selected], out sinum);
 		SelectedApproval = selected;
 	}
 
