@@ -404,9 +404,8 @@ public class GameSystemCtrl : MonoBehaviour { // This object tag must be "GameCo
 		UnhappinessText.text = Unhappiness.ToString();
 	}
 
-	public void EventCreate (int kind = 0) {
-		EventCtrl obj = Instantiate (EventActive).GetComponent<EventCtrl> ();
-		obj.EventKind = kind;
+	public void EventCreate () {
+		Instantiate (EventActive).GetComponent<EventCtrl> ();
 	}
 
 	public AlertFormCtrl Alert (string head, string info, int happy = 0, float appadd = 0f, float appsub = 0f) {

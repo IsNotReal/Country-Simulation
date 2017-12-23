@@ -8,7 +8,7 @@ public class EventCtrl : MonoBehaviour {
 	public string EventName;
 	[TextArea(3, 8)]
 	public string EventText;
-	public int EventKind;
+	public GameObject RunObject;
 	public int EventActivePosition; // this value must lower than GameSystemCtrl.EventAreas.length
 	public bool isPositive = true;
 
@@ -49,12 +49,8 @@ public class EventCtrl : MonoBehaviour {
 
 	public void ActiveEvent() {
 		GameSystem.AddHappiness (isPositive);
-		Debug.Log ("Event Actived, Event Kind: " + EventKind);
-		switch(EventKind){
-		default:
-			GameSystem.RandomRating ();
-			break;
-		}
+		GameSystem.RandomRating ();
+		Instantiate(RunObject);	
 	}
 
 	public void Alert () {
